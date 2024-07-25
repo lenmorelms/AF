@@ -1,0 +1,46 @@
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import helmet from "helmet";
+import compression from "compression";
+import bodyParser from "body-parser";
+import morgan from "morgan";
+import rateLimit from "express-rate-limit";
+import connectDatabase from "./Config/mongoDB.js";
+import userRouter from "./Routes/UserRoutes.js";
+import fixtureRouter from "./Routes/FixtureRoutes.js";
+import tournamentRouter from "./Routes/TournamentRoutes.js";
+import predictionRouter from "./Routes/PredictionRoutes.js";
+import leagueRouter from "./Routes/LeagueRoutes.js";
+
+dotenv.config();
+connectDatabase();
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(helmet());
+app.use(compression());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan("combined"));
+app.use(express.static("public"));
+app.use("/images", express.static("images"));
+
+
+app.use("/api/users", userRouter);                          // tested
+app.use("/api/tournaments", tournamentRouter);              // tested
+app.use("/api/fixtures", fixtureRouter);                    // tested
+app.use("/api/predictions", predictionRouter);              // tested
+app.use("/api/leagues", leagueRouter);                      // tested
+
+// Rate Limiting
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+});
+app.use(limiter);
+
+const PORT = process.env.PORT;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+export default app;

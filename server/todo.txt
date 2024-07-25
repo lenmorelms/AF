@@ -1,0 +1,2 @@
+###  add leagues to tournament table when user joins tournament
+###  When user joins a tournament update the tournamentPlayerTable and leagues array in User model 
