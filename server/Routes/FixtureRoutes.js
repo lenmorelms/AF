@@ -38,7 +38,7 @@ fixtureRouter.route("/:tournamentId/:round").get(adminProtect, asyncHandler(asyn
         res.status(500).send("Server Error..."); 
     } 
 }));
-// get a single tournament fixtures
+// get a single tournament fixture
 fixtureRouter.route("/:tournamentId/get/:fixtureId").get(adminProtect, asyncHandler(async (req, res) => {
     try {
         const { tournamentId, fixtureId } = req.params;

@@ -35,6 +35,63 @@ userRouter.route("/register").post(asyncHandler(async (req, res) => {
         res.status(500).send("Server Error...");
     }  
 }));
+// admin create account
+userRouter.route("/admin/register").post(asyncHandler(async (req, res) => {
+    try {
+        const { email, isAdmin, verifield } = req.body;
+        const username = capitalizeFirstLetter(req.body.username);
+        const password = sanitizeInput(req.body.password);
+
+        const adminExists = await User.findOne({ email });
+        const usernameTaken = await User.findOne({ username });
+
+        if(adminExists) res.status(409).json({ message: "Admin already exists" });
+        if(usernameTaken) res.status(409).json({ message: "Username is taken" });
+
+        const admin = new User({ email, usernam, password, isAdmin, verifield });
+        const salt = await bcrypt.genSalt(10);
+        admin.password = await bcrypt.hash(password, salt);
+        await admin.save(); 
+        res.status(201).json({ message: 'Admin created successfully', admin });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error...");
+    }
+
+}));
+// admin edit account
+userRouter.route("/admin/:id").put(asyncHandler(async (req, res) => {
+    try {
+        const admin = await User.findById(req.params.id);
+        if (admin) {
+            admin.email = req.body.email || admin.email;
+            admin.username = capitalizeFirstLetter(req.body.username) || admin.username;
+
+            await admin.save();
+            res.status(201).json({ message: "Profile updated successfully", admin }); 
+        } else {
+            res.status(404).json({ message: "Failed to update, Try again!" });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Sever Error...");
+    }
+}));
+// admin delete user
+userRouter.route("/admin/:id").delete(asyncHandler(async (req, res) => {
+    try {
+        const admin = User.findById(req.params.id);
+        if(admin) {
+            await User.deleteOne({ _id: req.params.id });
+            res.status(200).json({ message: "Profile deleted successfully." });
+        } else {
+            return res.status(204).json({ message: "Profile not found" });
+        } 
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Sever Error...");
+    }
+}));
 // login
 userRouter.route("/login").post(asyncHandler(async (req, res) => {
     try {
