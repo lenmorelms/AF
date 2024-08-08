@@ -40,8 +40,36 @@ tournamentRouter.route("/").get(protect, asyncHandler(async (req, res) => {
         res.status(500).send("Server Error..."); 
     } 
 }));
+// get all tournaments
+tournamentRouter.route("/admin").get(adminProtect, asyncHandler(async (req, res) => {
+    try {
+        const tournaments = await Tournament.find();
+        if(tournaments) {
+            res.status(200).json({ tournaments });
+        } else {
+            res.status(404).json({ message: "No tournaments available" });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error..."); 
+    } 
+}));
 // get tournament by id
 tournamentRouter.route("/:id").get(protect, asyncHandler(async (req, res) => {
+    try {
+        const tournament = await Tournament.findById(req.params.id);
+        if(tournament) {
+            res.status(200).json({ tournament });
+        } else {
+            res.status(404).json({ message: "Tournament does not exist" });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error...");
+    } 
+}));
+// get tournament by id admin
+tournamentRouter.route("/admin/:id").get(adminProtect, asyncHandler(async (req, res) => {
     try {
         const tournament = await Tournament.findById(req.params.id);
         if(tournament) {

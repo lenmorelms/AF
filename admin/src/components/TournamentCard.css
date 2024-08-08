@@ -1,0 +1,117 @@
+/* .tournament-card {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin: 0 auto;
+  }
+  
+  .tournament-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .image-container {
+    width: 100%;
+    height: 70%;
+    overflow: hidden;
+  }
+  
+  .tournament-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .card-content {
+    padding: 10px;
+    background-color: #fff;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .card-buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .edit-button,
+  .delete-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .edit-button {
+    background-color: #007bff;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+  }
+  
+  .edit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+   */
+   .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    /* max-width: 30%; */
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+  }
+  .card button {
+    border: none;
+    outline: 0;
+    padding: 6px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 15px;
+  }
+  
+  .card button:hover {
+    opacity: 0.7;
+  }
+  .flex-container-by2 {
+    display: flex;
+  }
+  .img-tournament {
+    width: 100%;
+  }
+  .btn-edit {
+    background-color: #2196F3;
+  }
+  .btn-delete {
+    background-color: red;
+  }
+  @media (max-width: 800px) {
+    .flex-container-by2 {
+      flex-direction: column;
+    }
+  }
+  .flex-item {
+    padding: 10px;
+    margin: 10px;
+    flex: 50%;
+  }

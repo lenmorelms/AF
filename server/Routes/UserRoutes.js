@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import User from "../Models/User.js";
 import sendVerificationEmail from "../utils/email.js";
 import { capitalizeFirstLetter, sanitizeInput } from "../utils/formatInput.js";
-import { protect } from "../Middleware/auth.js";
+import { adminProtect, protect } from "../Middleware/auth.js";
 
 const userRouter = express.Router();
 // register
@@ -226,6 +226,16 @@ userRouter.route("/profile").get(protect, asyncHandler(async (req, res) => {
         res.status(500).send("Sever Error...");
     } 
 })); 
+// admin get profile
+userRouter.route("/admin/profile").get(adminProtect, asyncHandler(async (req, res) => {
+    try {
+        // The user is authenticated, so req.user contains the authenticated user
+        res.json({ user: req.user});
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Sever Error...");
+    } 
+}));
 // update profile
 userRouter.route("/profile/:id").put(protect, asyncHandler(async (req, res) => {
     try {
