@@ -6,6 +6,7 @@ import compression from "compression";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
+import device from "express-device";
 import connectDatabase from "./Config/mongoDB.js";
 import userRouter from "./Routes/UserRoutes.js";
 import fixtureRouter from "./Routes/FixtureRoutes.js";
@@ -17,6 +18,9 @@ dotenv.config();
 connectDatabase();
 const app = express();
 
+
+// Use the express-device middleware
+app.use(device.capture());
 // Middleware
 app.use(cors());
 app.use(helmet());
@@ -27,7 +31,10 @@ app.use(morgan("combined"));
 app.use(express.static("public"));
 app.use("/images", express.static("images"));
 
-
+app.get("/device", (req, res) => {
+    const deviceType = req.device.type;
+    res.json({ deviceType });
+});
 app.use("/api/users", userRouter);                          // tested
 app.use("/api/tournaments", tournamentRouter);              // tested
 app.use("/api/fixtures", fixtureRouter);                    // tested

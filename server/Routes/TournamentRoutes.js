@@ -27,7 +27,7 @@ tournamentRouter.route("/").post(adminProtect, asyncHandler(async (req, res) => 
     }
 }));
 // get all tournaments
-tournamentRouter.route("/").get(protect, asyncHandler(async (req, res) => {
+tournamentRouter.route("/").get(asyncHandler(async (req, res) => {
     try {
         const tournaments = await Tournament.find();
         if(tournaments) {
@@ -40,7 +40,7 @@ tournamentRouter.route("/").get(protect, asyncHandler(async (req, res) => {
         res.status(500).send("Server Error..."); 
     } 
 }));
-// get all tournaments
+// get all tournaments admin
 tournamentRouter.route("/admin").get(adminProtect, asyncHandler(async (req, res) => {
     try {
         const tournaments = await Tournament.find();
@@ -55,7 +55,7 @@ tournamentRouter.route("/admin").get(adminProtect, asyncHandler(async (req, res)
     } 
 }));
 // get tournament by id
-tournamentRouter.route("/:id").get(protect, asyncHandler(async (req, res) => {
+tournamentRouter.route("/:id").get(asyncHandler(async (req, res) => {
     try {
         const tournament = await Tournament.findById(req.params.id);
         if(tournament) {
@@ -122,8 +122,9 @@ tournamentRouter.route("/player/join/:id").put(protect, asyncHandler(async (req,
         session.startTransaction();
         const tournamentId = req.params.id;
         const { userId, username, tournament, team } = req.body;
-        const user = await User.findById(userId);
-        if (user) {
+        const user = await User.findById(userId).session(session);
+        const tournamentData = await Tournament.findOne({ name: tournament }).session(session);
+        if (user && tournamentData) {
             // Check if player is part of tournament
             const tournamentExist = (user.tournaments).some(item => item.tourName === tournament);
             if(tournamentExist) {
@@ -131,16 +132,20 @@ tournamentRouter.route("/player/join/:id").put(protect, asyncHandler(async (req,
             } else {
                 // Add tournament to user model
                 user.tournaments.push({tournId: `${tournamentId}`, tourName:`${tournament}`, playerTeam: `${team}`});
-                const updatedUser = await user.save();
+                const updatedUser = await user.save({ session });
+
+                // update member count
+                tournamentData.memberCount = tournamentData.memberCount+=1;
+                await tournamentData.save({ session });
 
                 // Add user to tournament player table
                 const addPlayerToTable = new PlayerTable({ tournamentId, userId, username, team });
-                await addPlayerToTable.save();
+                await addPlayerToTable.save({ session });
                 if (updatedUser && addPlayerToTable) {
                     await session.commitTransaction();
                     res.status(201).json({updatedUser, addPlayerToTable });
                 } else {
-                    res.status(400).json({ message: "Failed to join tournament, Try Again"});
+                    res.status(401).json({ message: "Failed to join tournament, Try Again"});
                 }
             }
         }
@@ -151,7 +156,7 @@ tournamentRouter.route("/player/join/:id").put(protect, asyncHandler(async (req,
     } finally {
         session.endSession();
     }
-}))
+}));
 // player opt out of tournament[***WIP***]
 tournamentRouter.route("/player/:id").put(protect, asyncHandler(async (req, res) => {
     try {
@@ -188,9 +193,10 @@ tournamentRouter.route("/player/points/:id").get(protect, asyncHandler(async (re
         res.status(500).send("Server Error..."); 
     }
 }))
-//Tournamnet Tables
+// ### Tournamnet Tables
+// Tournament
 tournamentRouter.route("/player/table/:id").get(protect, asyncHandler(async (req, res) => {
-        const pageSize = 20;
+        const pageSize = 5000; // due to low user count, we gon query all the users per query
         const page = Number(req.query.pageNumber) || 1;
     try {
         const id = req.params.id;
@@ -247,6 +253,61 @@ tournamentRouter.route("/player/table/:id").get(protect, asyncHandler(async (req
             })
         }
 
+        if(tournamentLeaderboard) {
+            res.status(200).json({ tournamentLeaderboard, count, page, pages: Math.ceil(count / pageSize) });
+
+        } else {
+            res.status(404).json({ message: "Player leaderboard not found" });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error..."); 
+    }
+}));
+// team
+tournamentRouter.route("/player/team/table/:id/:team").get(protect, asyncHandler(async (req, res) => {
+    const pageSize = 5000; // due to low user count, we gon query all the users per query
+    const page = Number(req.query.pageNumber) || 1;
+    try {
+        const { id, team } = req.params;
+        const count = await PlayerTable.find({ tournamentId: id, team });
+        const tournamentLeaderboard = await PlayerTable.find({ tournamentId: id, team })
+            .limit(pageSize)
+            .skip(pageSize * (page - 1))
+            .sort({ total_points: -1 });
+        // Add position field to each player
+        const startingPosition = (page - 1) * pageSize + 1;
+        tournamentLeaderboard.forEach((player, index) => {
+            player._doc.position = startingPosition + index;
+        });
+        if(tournamentLeaderboard) {
+            res.status(200).json({ tournamentLeaderboard, count, page, pages: Math.ceil(count / pageSize) });
+
+        } else {
+            res.status(404).json({ message: "Player leaderboard not found" });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error..."); 
+    }
+}));
+// league
+tournamentRouter.route("/player/league/table/:id/:leagueId").get(protect, asyncHandler(async (req, res) => {
+    const pageSize = 5000; // due to low user count, we gon query all the users per query
+    const page = Number(req.query.pageNumber) || 1;
+    try {
+        const { id, leagueId } = req.params;
+        const count = await PlayerTable.find({ tournamentId: id, leagues: { $elemMatch: { $eq: leagueId } } });
+        const tournamentLeaderboard = await PlayerTable.find({ tournamentId: id, leagues: { $elemMatch: { $eq: leagueId } } })
+            .limit(pageSize)
+            .skip(pageSize * (page - 1))
+            .sort({ total_points: -1 });
+        
+        // Add position field to each player
+        const startingPosition = (page - 1) * pageSize + 1;
+        tournamentLeaderboard.forEach((player, index) => {
+            player._doc.position = startingPosition + index;
+        });
         if(tournamentLeaderboard) {
             res.status(200).json({ tournamentLeaderboard, count, page, pages: Math.ceil(count / pageSize) });
 

@@ -19,6 +19,11 @@ const TournamentSchema = mongoose.Schema(
             required: true,
             default: [],
         },
+        memberCount: {
+            type: Number,
+            required: true,
+            default: 0,
+        },
     },
     {
         timestamps: true,
