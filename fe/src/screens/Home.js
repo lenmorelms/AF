@@ -17,7 +17,7 @@ const Home = ({ deviceType }) => {
             <div className="body">
                 <HeroSection />
                 <CallToAction />
-                {/* <Tournaments source="join" /> */}
+                <Tournaments source="join" />
                 <InfoSection deviceType={deviceType} />
             </div>
             {deviceType==="phone" ?<FooterMobile /> : <Footer2 />}
