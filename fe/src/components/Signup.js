@@ -35,7 +35,7 @@ const Signup = () => {
 
     useEffect(() => {
         if (error) {
-          setLocalError(error);
+          setLocalError("Failed To Sign Up, Try Again");
           setTimeout(() => {
             setLocalError(null);
           }, 2500);
