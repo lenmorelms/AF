@@ -1,6 +1,7 @@
 import React from 'react';
 import { heroImage } from './reusables/Functions';
 import { Link } from 'react-router-dom';
+import CountDown from './CountDown';
 
 const HeroSection = () => {
   const styles = {
@@ -59,10 +60,11 @@ const HeroSection = () => {
       <div style={styles.subheading}>
         Join a league or start your own now!
       </div>
-      <div style={styles.buttonContainer}>
+      <CountDown />
+      {/* <div style={styles.buttonContainer}>
         <Link to={`/tournaments`}><button style={styles.button}>JOIN A FREE LEAGUE</button></Link>
         <Link to={`/tournaments`}><button style={styles.button}>START A FREE LEAGUE</button></Link>
-      </div>
+      </div> */}
     </div>
   );
 };
