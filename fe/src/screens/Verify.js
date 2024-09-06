@@ -13,7 +13,7 @@ const Verify = () => {
     const redirect = location.search ? location.search.split("=")[1] : "/";
 
     const verifyData = useSelector((state) => state._verify);
-    const { data, loading, error } = verifyData;
+    const { data, loading, error, success } = verifyData;
 
     const verifyHandle = (e) => {
         e.preventDefault();
@@ -21,10 +21,10 @@ const Verify = () => {
     };
 
     useEffect(() => {
-        if (data) {
+        if (data && success) {
             navigate("/");
         }
-    }, [data, navigate]);
+    }, [data, success, navigate]);
 
     return (
         <div className="verify-container">
