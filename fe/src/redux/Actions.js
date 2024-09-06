@@ -86,7 +86,7 @@ export const verify = (verificationToken) => async(dispatch) => {
         dispatch({ type: VERIFY_REQUEST });
         const config = configFunction("application/json");
         console.log('Sending verification token:', verificationToken);
-        const response = await axios.put(`http://localhost:5000/api/users/verify`, {verificationToken}, config);
+        const response = await axios.put(`${serverUrl}/api/users/verify`, {verificationToken}, config);
         console.log('Sending verification token:', serverUrl);
         dispatch({ type: VERIFY_SUCCESS, payload: response.data });
     } catch (error) {
