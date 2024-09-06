@@ -62,8 +62,8 @@ const HeroSection = () => {
       </div>
       <CountDown />
       {/* <div style={styles.buttonContainer}>
-        <Link to={`/tournaments`}><button style={styles.button}>JOIN A FREE LEAGUE</button></Link>
-        <Link to={`/tournaments`}><button style={styles.button}>START A FREE LEAGUE</button></Link>
+        <a href={`/tournaments`}><button style={styles.button}>JOIN A FREE LEAGUE</button></a>
+        <a href={`/tournaments`}><button style={styles.button}>START A FREE LEAGUE</button></a>
       </div> */}
     </div>
   );
