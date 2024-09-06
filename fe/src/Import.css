@@ -28,13 +28,13 @@
   }
   /* Navigation */
   .nav-link:hover {
-    color: red;
+    color: #e74c3c;
   }
   .nav-link.active {
-    color: red;
+    color: #e74c3c;
   }
   .header-login-button {
-    background-color: red;
+    background-color: #e74c3c;
     color: #fff!important;
     border-radius: 30px;
     width: 100%;
@@ -50,14 +50,14 @@
   }
   .btn-login:hover {
     transition: 0.5s;
-    background-color: red;
+    background-color: #e74c3c;
     color: #fff;
   }
   .navy {
     color: navy;
   }
   .red {
-    color: red;
+    color: #e74c3c;
   }
   .error {
     margin: 0 25%;
@@ -103,8 +103,8 @@
   
   /* Style for the buttons */
   .my-column button, .start-playing button {
-    background-color: red; /* White button background */
-    color: #fefefe; /* Red button text color */
+    background-color: #e74c3c; /* White button background */
+    color: #fefefe; /* #e74c3c button text color */
     border: none;
     border-radius: 20px; /* Rounded button edges */
     padding: 10px 20px; /* Adjust padding as needed */
@@ -125,17 +125,17 @@
   .camel-case::first-letter {
     text-transform: uppercase;
   }
-  .predict-box {
+  .p#e74c3cict-box {
     text-align: center;
     /* width: 50%; */
     border: 1px solid navy;
     border-radius: 5px;
   }
-  button.predict-box {
+  button.p#e74c3cict-box {
     background-color: navy;
     color: #fff;
   }
-  button.predict-box:hover {
+  button.p#e74c3cict-box:hover {
     background-color: navy;
     color: #fff;
   }
@@ -147,7 +147,7 @@
   .subscribe-section {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
       /* url("https://sasshoes-com.s3.us-west-2.amazonaws.com/img/banner-uplift-21.jpg") */
-      url("https://afripredictor.onrender.com/images/ground.jpg")
+      url("https://afrip#e74c3cictor.onrender.com/images/ground.jpg")
         no-repeat scroll center / cover;
     padding: 100px 0 100px;
   }
@@ -180,7 +180,7 @@
     width: 460px;
   }
   .form-section input[type="submit"] {
-    background: red;
+    background: #e74c3c;
     border: 0 none;
     border-radius: 25px;
     color: #fff;
@@ -226,7 +226,7 @@
   }
   
   /* ZIMPSL */
-  .predictor-box {
+  .p#e74c3cictor-box {
     width: 198px;
     font-family: monospace;
     letter-spacing: 8px;
@@ -234,7 +234,7 @@
     background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><line style="stroke: #000" x1="20.090665817260742" y1="-0.08398216962814331" x2="20.090665817260742" y2="20.07965660095215"/></svg>');
     background-repeat: repeat-x;
   }
-  .predictor-logo {
+  .p#e74c3cictor-logo {
     border-radius: 50%;
       max-width: 100px; /* Adjust the width as needed */
       height: auto; /* Adjust the height as needed */
@@ -257,7 +257,7 @@
     .flex-container {
         flex-direction: column;
     }
-    .predictor-logo {
+    .p#e74c3cictor-logo {
       border-radius: 50%;
         max-width: 70px; /* Adjust the width as needed */
         height: auto; /* Adjust the height as needed */
@@ -267,8 +267,8 @@
     }
   }
   
-  .color-red {
-    color: red;
+  .color-#e74c3c {
+    color: #e74c3c;
   }
   .heading {
     font-size: 30px;

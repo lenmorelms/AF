@@ -38,7 +38,7 @@ const Signin = () => {
     }, [data, navigate, redirect]);
     useEffect(() => {
       if (error) {
-        setLocalError(error);
+        setLocalError("Wrong Username/Password, Try Again.");
       }
     }, [error]);
 
@@ -58,15 +58,15 @@ const Signin = () => {
 
     return (
         <>
-        <div  className="" style={{ textAlign: "center", padding: "5rem" }}>
+        <div  className="" style={{ textAlign: "center", padding: "5rem 1rem" }}>
           {/* {error && <Message variant="alert-danger">Wrong Username/Password, Try Again.</Message>} */}
           {localError && (
           <Message variant="alert-danger" onClose={() => setLocalError(null)}>
-            Wrong Username/Password, Try Again.
+            {localError}
           </Message>
           )}
           {loading && <Loading />}
-            <div className="color-red heading">Sign In<i class="fa fa-sign-in" aria-hidden="true"></i></div>
+            <div className="red heading">Sign In<i class="fa fa-sign-in" aria-hidden="true"></i></div>
             <br />
             <div className="login-form d-flex justify-content-center align-items-center">
                 <form onSubmit={submitHandler}>
@@ -117,7 +117,7 @@ const Signin = () => {
             </div>
             <div className="flex m-3">
             <Link to="/forgot-password" className="nav-item p-2" style={{ textDecoration: "none" }}>Forgot Password</Link>
-            <Link to="/register" className="p-2" style={{ textDecoration: "none" }}>Sign Up</Link>
+            <Link to="/signup" className="p-2" style={{ textDecoration: "none" }}>Sign Up</Link>
             </div>
         </div>
         </>

@@ -37,7 +37,7 @@ const Verify = () => {
                 <Button
                     className="btn btn-success"
                     type="submit"
-                    children="VERIFY"
+                    text="VERIFY"
                 />
             </form>
             </div>

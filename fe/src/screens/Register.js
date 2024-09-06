@@ -3,6 +3,7 @@ import Signup from "../components/Signup";
 import Header2 from "../components/Header2";
 import Footer2 from "../components/reusables/Footer2";
 import MobileHeader from "../components/mobile/MobileHeader";
+import FooterMobile from "../components/reusables/FooterMobile";
 
 const Register = ({ deviceType }) => {
     return (
@@ -12,7 +13,7 @@ const Register = ({ deviceType }) => {
             </div>
             <div className="body">
                 <Signup />
-                <Footer2 />
+                {deviceType==="phone" ?<FooterMobile /> : <Footer2 />}
             </div>
         </div>
     );

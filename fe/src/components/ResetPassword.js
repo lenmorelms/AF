@@ -86,7 +86,7 @@ const ResetPassword = () => {
                     <Button
                         className="btn btn-login margin"
                         type="submit"
-                        children="Reset"
+                        text="Reset"
                     />
                 </form>
             </div>

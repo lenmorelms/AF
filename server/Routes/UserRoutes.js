@@ -11,22 +11,34 @@ const userRouter = express.Router();
 // register
 userRouter.route("/register").post(asyncHandler(async (req, res) => {
     try {
-        const { email, age, gender, country, isAdmin } = req.body;
-        const username = capitalizeFirstLetter(req.body.username);
-        const password = sanitizeInput(req.body.password);
-
+        const { email, username, country, password, isAdmin } = req.body;
+        const sanitizedUsername = capitalizeFirstLetter(username);
+        const salt = await bcrypt.genSalt(10);
+        const sanitizedPassword = await bcrypt.hash(sanitizeInput(password), salt);
         const userExists = await User.findOne({ email });
-        const usernameTaken = await User.findOne({ username });
-        const userNotVerifield = await User.findOne({ email, username, verified: false });
+        if (userExists) {
+            return res.status(409).json({ message: "User already exists" });
+        }
 
-        if(userExists) res.status(409).json({ message: "User already exists" });
-        if(usernameTaken) res.status(409).json({ message: "Username is taken" });
-        if(userNotVerifield) res.status(409).json({ message: "User not verifield" });
+        const usernameTaken = await User.findOne({ username: sanitizedUsername });
+        if (usernameTaken) {
+            return res.status(409).json({ message: "Username is taken" });
+        }
+
+        const userNotVerified = await User.findOne({ email, username: sanitizedUsername, verified: false });
+        if (userNotVerified) {
+            return res.status(409).json({ message: "User not verified" });
+        }
 
         const verificationToken = Math.random().toString(36).substring(7);
-        const user = new User({ email, username, age, gender, country, password, isAdmin, verificationToken });
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(password, salt);
+        const user = new User({
+            email,
+            username: sanitizedUsername,
+            country,
+            password: sanitizedPassword,
+            isAdmin,
+            verificationToken
+        });
         await user.save();
         await sendVerificationEmail(email, verificationToken, "register"); 
         res.status(201).json({ message: 'User created successfully', user });

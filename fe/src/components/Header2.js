@@ -50,7 +50,8 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '0 5rem',
-    backgroundColor: 'navy',
+    // backgroundColor: 'navy',
+    backgroundColor: '#1c1e4f',
     height: '60px',
     margin: '0',
   },
@@ -71,7 +72,7 @@ const styles = {
   },
   loginButton: {
     // backgroundColor: '#ecf0f1',
-    backgroundColor: 'red',
+    backgroundColor: '#e74c3c',
     color: '#ecf0f1',
     border: 'none',
     padding: '8px 16px',

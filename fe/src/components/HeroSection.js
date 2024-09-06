@@ -34,7 +34,8 @@ const HeroSection = () => {
     },
     button: {
       // backgroundColor: '#ffc72c',
-      backgroundColor: 'gold',
+      // backgroundColor: 'goldenrod',
+      backgroundColor: '#ffc300',
       color: '#000',
       // padding: '15px 30px',
       padding: '10px 20px',

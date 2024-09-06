@@ -4,7 +4,7 @@ const Message = ({ variant, children }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       document.getElementById("error-popup").style.display = "none";
-    }, 2000); // Hide the message after 5 seconds
+    }, 2500); // Hide the message after x seconds
 
     return () => clearTimeout(timer); // Cleanup on component unmount
   }, []);

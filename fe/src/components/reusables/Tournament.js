@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from './Image';
 import { Link, useNavigate } from 'react-router-dom';
+// import { selectedTournamentDat } from './Functions';
 
-const Tournament = ({ data, Id, logoUrl, flagUrl, title, description, buttonText, isPlayerPartOfTournament }) => {
+const Tournament = ({ data, Id, logoUrl, flagUrl, title, description, buttonText, isPlayerPartOfTournament, source }) => {
   const navigate = useNavigate();
+  // const [tournamentData, setTournamentData] = useState(selectedTournamentDat);
   const chooseTeam = () => {
-    if(isPlayerPartOfTournament) {
-      navigate(`/${Id}/predictions`);
+    if(source === "join") {
+      navigate(`/tournaments`)
+    }
+    else if(isPlayerPartOfTournament) {
+      // setTournamentData(data);
+      localStorage.setItem('tournamentData', JSON.stringify(data));
+      // localStorage.setItem('tournamentData', JSON.stringify(data)).then(() => navigate(`/${Id}/predictions`, { state: data}));
+      navigate(`/${Id}/predictions`, { state: data});
     } else {
-      navigate(`/${Id}/teams`, { state: data });
+      localStorage.setItem('tournamentData', JSON.stringify(data));
+      navigate(`/${Id}/teams`, { state: data })
+      // localStorage.setItem('tournamentData', JSON.stringify(data)).then(() => navigate(`/${Id}/teams`, { state: data }));
     }
   }
   return (
@@ -33,7 +43,7 @@ const Tournament = ({ data, Id, logoUrl, flagUrl, title, description, buttonText
         {description}
       </p>
       {/* {source === "join" && <button style={styles.playButton} onClick={chooseTeam}>{buttonText}</button>} */}
-        <button style={styles.playButton} onClick={chooseTeam}>{buttonText}</button>
+      {source==="play" && <button style={styles.playButton} onClick={chooseTeam}>{buttonText}</button>}
     </div>
   );
 };

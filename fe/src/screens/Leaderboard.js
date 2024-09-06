@@ -6,6 +6,7 @@ import TournamentNav from "../components/reusables/TournamentNav";
 import LeaderboardCard from "../components/LeaderboardCard";
 import Footer2 from "../components/reusables/Footer2";
 import { useParams } from "react-router-dom";
+import FooterMobile from "../components/reusables/FooterMobile";
 
 const Leaderboard = ({ deviceType }) => {
   const { id } = useParams();
@@ -17,11 +18,11 @@ const Leaderboard = ({ deviceType }) => {
         <div className="heading">
             {(deviceType=="phone") ? <MobileHeader /> : <Header2 />}
         </div>
-        <TournamentHeader tournamentName="ZIM PSL" />
+        <TournamentHeader tournamentId={id} />
         <TournamentNav tournamentId={id} />
         <div className="body">
-            <LeaderboardCard tournamentId={id} team={team} leagueId={leagueId} />
-            <Footer2 />
+            <LeaderboardCard deviceType={deviceType} tournamentId={id} team={team} leagueId={leagueId} />
+            {deviceType==="phone" ?<FooterMobile /> : <Footer2 />}
         </div>
     </div>
   );

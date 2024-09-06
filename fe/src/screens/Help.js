@@ -3,6 +3,7 @@ import React from 'react';
 import Header2 from '../components/Header2';
 import MobileHeader from '../components/mobile/MobileHeader';
 import Footer2 from '../components/reusables/Footer2';
+import FooterMobile from '../components/reusables/FooterMobile';
 
 const Help = ({ deviceType }) => {
 
@@ -60,10 +61,11 @@ const Help = ({ deviceType }) => {
         <b>How To Play</b><br /><br />
         <ul>
             <li>
-                <b>Predicting Matches:</b> To play, simply navigate to the upcoming matches, select the match you want to predict, and enter your score or outcome prediction. Earn points based on the accuracy of your predictions and climb up the leaderboard.
+                <b>Predicting Matches:</b> To play, simply navigate to the tournament predictions page, select the match you want to predict, and enter your score or outcome prediction. Earn points based on the accuracy of your predictions and climb up the leaderboard.
             </li>
             <li>
-                <b>Scoring:</b> Points are awarded based on the accuracy of your predictions. The more accurate your prediction, the more points you earn. Keep track of your score on the leaderboard and compete with friends for bragging rights.
+                <b>Scoring:</b> Points are awarded based on the accuracy of your predictions. The more accurate your prediction, the more points you earn. Keep track of your score on the leaderboard and compete with friends for bragging rights. 
+                <b> For Soccer:</b> Predicting the exact score earns you 3 points, correct result 2 ponts and a close call erans you 1 point.
             </li>
         </ul>
 
@@ -74,7 +76,7 @@ const Help = ({ deviceType }) => {
         </div>
     </div>
 
-    <Footer2 />
+    {deviceType==="phone" ?<FooterMobile /> : <Footer2 />}
     </>
   );
 };

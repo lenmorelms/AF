@@ -19,7 +19,7 @@ const ForgotPassword = () => {
 
     return (
         <>
-        <div className="" style={{ textAlign: "center", padding: "5rem" }}>
+        <div className="" style={{ textAlign: "center", padding: "5rem 1rem" }}>
         {/* {error && <Message variant="alert-danger">Failed to Recover Account, Try Again.</Message>} */}
         {/* {success && <div style={{ color: "red" }}>Reset password link sent to your email</div>} */}
         {/* {loading && <Loading />} */}
@@ -43,7 +43,7 @@ const ForgotPassword = () => {
                     <Button
                         className="btn btn-login margin"
                         type="submit"
-                        children="Submit"
+                        text="Submit"
                     />
                 </form>
             </div>

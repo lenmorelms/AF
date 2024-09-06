@@ -5,7 +5,7 @@ const Footer2 = () => {
     return (
         <>
 <div className="">
-  <footer className="text-center text-white" style={{backgroundColor: "navy"}}>
+  <footer className="text-center text-white" style={{backgroundColor: "#1c1e4f"}}>
     <div className="container">
       <section className="mt-0">
         <div className="row text-center d-flex justify-content-center pt-5">

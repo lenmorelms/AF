@@ -5,6 +5,7 @@ import MobileHeader from '../components/mobile/MobileHeader';
 import Footer2 from '../components/reusables/Footer2';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../components/reusables/Button';
+import FooterMobile from '../components/reusables/FooterMobile';
 // import { sendMail } from '../Redux/Actions';
 // import Message from '../components/LoadingError/Error';
 // import Loading from '../components/LoadingError/Loading';
@@ -101,7 +102,7 @@ const Contact = ({ deviceType }) => {
                   <Button 
                     className="btn btn-login margin"
                     type="submit"
-                    children="Submit"
+                    text="Submit"
                   />
                 </div>
               </div>
@@ -116,7 +117,7 @@ const Contact = ({ deviceType }) => {
 
         </div>
     </div>
-    <Footer2 />
+    {deviceType==="phone" ?<FooterMobile /> : <Footer2 />}
     </>
   );
 };

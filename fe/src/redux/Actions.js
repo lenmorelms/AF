@@ -51,11 +51,11 @@ export const logout = () => async (dispatch) => {
         dispatch({ type: LOGOUT_FAILURE, payload: error.message });
     }
 };
-export const register = (email, age, gender, country, isAdmin, username, password) => async(dispatch) => {
+export const register = (email, username, country, password, isAdmin) => async(dispatch) => {
     try {
         dispatch({ type: REGISTER_REQUEST});
-        const config = configFunction("application/json");
-        const response = await axios.post(`/api/users/register`, {email, age, gender, country, isAdmin, username, password}, config);
+        const config = configFunction("application/json", "");
+        const response = await axios.post(`/api/users/register`, {email, username, country, password, isAdmin}, config);
         dispatch({ type: REGISTER_SUCCESS, payload: response.data });
     } catch (error) {
         dispatch({ type: REGISTER_FAILURE, payload: error.message });

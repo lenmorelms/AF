@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Team = ({ name, logo, onClick }) => {
+const Team = ({ name, logo, onClick, logoWidth, logoHeight }) => {
     return (
         <div style={styles.teamContainer} onClick={onClick}>
-            <img src={logo} alt={name} style={styles.logo} />
+            <img src={logo} alt={name} style={{ width: logoWidth, height: logoHeight, marginBottom: '10px' }} />
             <p style={styles.teamName}>{name}</p>
         </div>
     );
@@ -16,13 +16,16 @@ const styles = {
         alignItems: 'center',
         margin: '25px',
     },
-    logo: {
-        width: '80px',
-        height: '80px',
-        marginBottom: '10px',
-    },
+    // logo: {
+    //     // width: '80px',style={styles.logo}
+    //     // height: '80px',
+    //     width: logoWidth,
+    //     height: logoHeight,
+    //     marginBottom: '10px',
+    // },
     teamName: {
-        fontSize: '16px',
+        // fontSize: '16px',
+        fontSize: '1rem',
         fontWeight: '500',
         color: '#333',
         textAlign: 'center',

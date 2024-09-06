@@ -3,7 +3,7 @@ import Header2 from "../components/Header2";
 import MobileHeader from "../components/mobile/MobileHeader";
 import ResetPassword from "../components/ResetPassword";
 import Footer2 from "../components/reusables/Footer2";
-
+import FooterMobile from "../components/reusables/FooterMobile";
 const ResetPasswordScreen = ({ deviceType }) => {
     return (
         <div>
@@ -12,7 +12,7 @@ const ResetPasswordScreen = ({ deviceType }) => {
             </div>
             <div className="body">
                 <ResetPassword/>
-                <Footer2 />
+                {deviceType==="phone" ?<FooterMobile /> : <Footer2 />}
             </div>
         </div>
     );

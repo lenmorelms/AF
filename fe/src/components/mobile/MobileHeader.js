@@ -20,18 +20,33 @@ const MobileHeader = () => {
     dispatch(logout());
   };
   useEffect(() => {
-    if(success) navigate("/");
+    if (success) navigate("/");
   }, [success, data, navigate]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+    document.body.classList.toggle('no-scroll', !isOpen);
   };
+
+  useEffect(() => {
+    return () => {
+      // Clean up the no-scroll class when component unmounts or menu closes
+      document.body.classList.remove('no-scroll');
+      // if(isOpen) {
+      //   document.body.classList.add('no-scroll');
+      // } else {
+      //   document.body.classList.remove('no-scroll');
+      // }
+    };
+  }, []);
 
   return (
     <div className="mobile-navbar">
       <div className="mobile-navbar__header">
         <div className="mobile-navbar__logo">
-          <Link to="/"> <Image src={logoImage} width={150} height={150} className="mobile-header-logo" /></Link>
+          <Link to="/"> 
+            <Image src={logoImage} width={150} height={150} className="mobile-header-logo" />
+          </Link>
         </div>
         <div className="mobile-navbar__icon" onClick={toggleMenu}>
           {isOpen ? <FaTimes size={30} /> : <FaBars size={30} />}
@@ -45,10 +60,8 @@ const MobileHeader = () => {
             <li><a href="/tournaments">Tournaments</a></li>
             <li><a href="/news">News</a></li>
             {isTokenValid() ? 
-              // <li><a href="/signout">Signout</a></li>
               <button style={styles.loginButton} onClick={logoutHandler}>Signout</button> 
               :
-              // <li><a href="/signin">Signin</a></li>
               <Link to="/signin"><button style={styles.loginButton}>Signin</button></Link>
             }
           </ul>
@@ -57,11 +70,11 @@ const MobileHeader = () => {
     </div>
   );
 };
+
 const styles = {
   loginButton: {
     width: '100%',
-    // backgroundColor: '#ecf0f1',
-    backgroundColor: 'red',
+    backgroundColor: '#e74c3c',
     color: '#ecf0f1',
     border: 'none',
     padding: '8px 16px',
@@ -70,4 +83,5 @@ const styles = {
     fontSize: '16px',
   },
 }
+
 export default MobileHeader;

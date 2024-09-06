@@ -6,6 +6,7 @@ import TournamentHeader from "../components/reusables/TournamentHeader";
 import TournamentNav from "../components/reusables/TournamentNav";
 import RoundPrediction from "../components/RoundPrediction";
 import { useParams } from "react-router-dom";
+import FooterMobile from "../components/reusables/FooterMobile";
 
 const Predictions = ({ deviceType }) => {
     const { id } = useParams();
@@ -14,11 +15,11 @@ const Predictions = ({ deviceType }) => {
             <div className="heading">
                 {(deviceType=="phone") ? <MobileHeader /> : <Header2 />}
             </div>
-            <TournamentHeader tournamentName="ZIM PSL" />
+            <TournamentHeader tournamentId={id} />
             <TournamentNav tournamentId={id} />
             <div className="body">
-                <RoundPrediction />
-                <Footer2 />
+                <RoundPrediction deviceType={deviceType} tournamentId={id} />
+                {deviceType==="phone" ?<FooterMobile /> : <Footer2 />}
             </div>
         </div>
     );

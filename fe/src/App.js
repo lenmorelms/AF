@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import axios from 'axios';
 import './App.css';
@@ -22,10 +22,18 @@ import Leaderboard from './screens/Leaderboard';
 import ProtectedRoute from './components/reusables/ProtectedRoute';
 import News from './screens/News';
 import RoundPredictions from "./screens/RoundPredictions";
+import NotFound from './screens/NotFound';
+import Store from './screens/Store';
 
 function App() {
   const [deviceType, setDeviceType] = useState("");
-  axios.get(`/device`).then(response => setDeviceType(response.data.deviceType));
+  // axios.get(`/device`).then(response => setDeviceType(response.data.deviceType));
+  // Fetch device type only when the component mounts
+  useEffect(() => {
+    axios.get(`/device`)
+      .then(response => setDeviceType(response.data.deviceType))
+      .catch(error => console.error('Error fetching device type:', error));
+  }, []); // Empty dependency array ensures it runs only once on mount
   return (
     <Router>
       <Routes>
@@ -42,16 +50,19 @@ function App() {
         <Route exact path='/how-it-works' element={<HowITWorks deviceType={deviceType} />} />
         <Route exact path='/learn' element={<Learn deviceType={deviceType} />} />
         <Route exact path='/news' element={<News deviceType={deviceType} />} />
+        <Route exact path='/store' element={<Store deviceType={deviceType} />} />
 
         <Route exact path='/tournaments' element={<ProtectedRoute element={JoinTournament} deviceType={deviceType} />} />
         <Route exact path='/:id/teams' element={<ProtectedRoute element={ChooseTeam} deviceType={deviceType} />} />
         <Route exact path='/:id/predictions' element={<ProtectedRoute element={Predictions} deviceType={deviceType} />} />
-        <Route exact path='/:id/predictions/:round' element={<RoundPredictions deviceType={deviceType} />} />
-        <Route exact path='/:id/leagues' element={<Leagues deviceType={deviceType} />} />
+        <Route exact path='/:id/predictions/:round' element={<ProtectedRoute element={RoundPredictions} deviceType={deviceType} />} />
+        {/* <Route exact path='/:id/leagues' element={<Leagues deviceType={deviceType} />} /> */}
         {/* <Route exact path='/:id/leagues/:round' element={<Leagues />} /> */}
-        <Route exact path='/:id/leaderboard' element={<Leaderboard deviceType={deviceType} />} />
-        <Route exact path='/:id/leaderboard/:team/team' element={<Leaderboard deviceType={deviceType} />} />
-        <Route exact path='/:id/leaderboard/:leagueId/league' element={<Leaderboard deviceType={deviceType} />} />
+        <Route exact path='/:id/leaderboard' element={<ProtectedRoute element={Leaderboard} deviceType={deviceType} />} />
+        {/* <Route exact path='/:id/leaderboard/:team/team' element={<Leaderboard deviceType={deviceType} />} /> */}
+        {/* <Route exact path='/:id/leaderboard/:leagueId/league' element={<Leaderboard deviceType={deviceType} />} /> */}
+        {/* NOT FOUND */}
+        <Route exact path='*' element={<NotFound />} />
       </Routes>
     </Router>
   );

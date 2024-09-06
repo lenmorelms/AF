@@ -4,7 +4,9 @@ import { jwtDecode } from "jwt-decode";
 export const logoImage = "/ap_imgs/logo/logo-no-background.svg";
 export const heroLogoImage = "/ap_imgs/logo/logo-no-background.svg";
 // export const heroLogoImage = "/ap_imgs/ap_banner.png";
-export const tournImage = "https://s.yimg.com/ny/api/res/1.2/E2ehEvUxeyj2jdBmbVw3lQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTM2MA--/https://media.zenfs.com/en/creative_bloq_161/87fefa9e5a05f4e3b07c88f2fe805fcc";
+export const tournImage = (name) => {
+  return `/tourn_logos/${name}.png`;
+};
 export const teamImage = (country, team) => {
   return `/teams/${replaceSpacesWithHyphens(country)}/${replaceSpacesWithHyphens(team)}.png`;
 };
@@ -53,7 +55,8 @@ export const isTokenValid = () => {
     }
 };
 
-export const userData = JSON.parse(localStorage.getItem("userData")) || null;
+export const userData = JSON.parse(localStorage.getItem("userData")) || null; 
+export const selectedTournamentDat = null;
 
 export const checkTournIdMatch = (array, id) => {
     for (let item of array) {
@@ -107,3 +110,54 @@ export const findUserTeamAndLeagues = (data, tournamentId) => {
 export const replaceSpacesWithHyphens = (str) => {
     return str.split(' ').join('-');
   }
+
+export const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    
+    const options = {
+        day: '2-digit',        // Day of the month, 2 digits
+        month: 'short',    // Short month name (e.g., "Sept")
+        year: 'numeric'        // 4-digit year (e.g., "2024")
+    };
+
+    return date.toLocaleDateString('en-GB', options).replace(',', '');
+};
+
+export const isDateTimeInPast = (dateString, timeString) => {
+  // Combine date and time strings into a single Date object
+  const providedDateTime = new Date(`${dateString.split('T')[0]}T${timeString}:00.000`);
+
+  // Get the current date and time
+  const currentDateTime = new Date();
+
+  // Check if the provided date and time are less than or equal to the current date and time
+  return providedDateTime <= currentDateTime;
+};
+
+export const calculatePredictionPoints = (actualHomeScore, actualAwayScore, predictedHomeScore, predictedAwayScore) => {
+  // Check for exact score match
+  if (actualHomeScore === predictedHomeScore && actualAwayScore === predictedAwayScore) {
+      return "exactScore";
+  }
+
+  // Check for correct result (win, lose, or draw)
+  const actualResult = actualHomeScore > actualAwayScore ? "homeWin" :
+                       actualAwayScore > actualHomeScore ? "awayWin" : "draw";
+  const predictedResult = predictedHomeScore > predictedAwayScore ? "homeWin" :
+                          predictedAwayScore > predictedHomeScore ? "awayWin" : "draw";
+
+  if (actualResult === predictedResult) {
+      return "correctResult";
+  }
+
+  // Check for close result
+  const actualTotal = actualHomeScore + actualAwayScore;
+  const predictedTotal = predictedHomeScore + predictedAwayScore;
+  
+  if (Math.abs(actualTotal - predictedTotal) <= 1.5) {
+      return "closeResult";
+  }
+
+  // If none of the conditions match, return no points
+  return "noPoints";
+}

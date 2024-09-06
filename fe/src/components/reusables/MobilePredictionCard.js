@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { calculatePredictionPoints, formatDate, isDateTimeInPast, teamImage } from "./Functions";
+import { teamImage, formatDate, isDateTimeInPast } from "./Functions";
 import Team from "./Team";
 import { useDispatch, useSelector } from "react-redux";
 import { playerPredictions, tournament } from "../../redux/Actions";
 import Loading from "./Loading";
 import Message from "./Message";
 
-const PredictionCard = ({ userId, tournamentId, tournamentCountry, fixtureId, round, date, time, homeTeamId, awayTeamId, actualHomeScore, actualAwayScore, playerPredicted, result, playerResult }) => {
+const MobilePredictionCard = ({ userId, tournamentId, tournamentCountry, fixtureId, round, date, time, homeTeamId, awayTeamId, actualHomeScore, actualAwayScore, playerPredicted, result, playerResult }) => {
     
     const [homeScore, setHomeScore] = useState(actualHomeScore);
     const [awayScore, setAwayScore] = useState(actualAwayScore);
@@ -16,8 +16,6 @@ const PredictionCard = ({ userId, tournamentId, tournamentCountry, fixtureId, ro
 
     const predictData = useSelector((state) => state._predict);
     const { loading, data, error, success } = predictData;
-
-    // var playerOutcome = "";
 
     useEffect(() => {
       if(error) {
@@ -61,16 +59,21 @@ const PredictionCard = ({ userId, tournamentId, tournamentCountry, fixtureId, ro
               {predictSuccess}
             </Message>
           )}
-      <div style={styles.teamsContainer}>
-        <div style={styles.team}>
-            <Team name={homeTeamId} logo={teamImage( tournamentCountry, homeTeamId)} logoWidth={`80px`} logoHeight={`80px`} />
-        </div>
-        <div style={styles.middleContainer}>
-          <div style={styles.dateContainer}>
+      <div>
+      <div style={styles.dateContainer}> 
             <p>{formatDate(date)}</p>
             <p>{time}</p>
           </div>
-          {/* {playerResult && console.log("playerResults "+playerResult.predictedHomeScore)} */}
+      <div style={styles.teamsContainer}>
+        <div style={styles.team}>
+            <Team name={homeTeamId} logo={teamImage(tournamentCountry, homeTeamId)} logoWidth={`30px`} logoHeight={`30px`} />
+        </div>
+        <div style={styles.middleContainer}>
+          {/* <div style={styles.dateContainer}> 
+            <p>{formatDate(date)}</p>
+            <p>{time}</p>
+          </div> */}
+          {playerResult && console.log("playerResults "+playerResult.predictedHomeScore)}
           <div style={styles.scoreContainer}>
           <input 
             type="number"
@@ -81,9 +84,19 @@ const PredictionCard = ({ userId, tournamentId, tournamentCountry, fixtureId, ro
               setHomeScore(e.target.value);
               onInputChange();
             }}
+            // onFocus={() => alert()}
+            // onBlur={() => alert()}
             className="form-control"  
             disabled={playerPredicted && true} 
           />
+          {/* <Select
+            defaultValue={result ? (homeScore) : (playerPredicted && playerResult) ? playerResult.predictedHomeScore : (homeScore)}
+            onChange={() => { 
+              setHomeScore;
+              onInputChange();
+            }}
+            options={scoreOptions}
+          /> */}
           <input 
             type="number"
             min={0}
@@ -99,21 +112,19 @@ const PredictionCard = ({ userId, tournamentId, tournamentCountry, fixtureId, ro
           </div>
         </div>
         <div style={styles.team}>
-            <Team name={awayTeamId} logo={teamImage(tournamentCountry, awayTeamId)} logoWidth={`80px`} logoHeight={`80px`} />
+            <Team name={awayTeamId} logo={teamImage(tournamentCountry, awayTeamId)} logoWidth={`30px`} logoHeight={`30px`} />
         </div>
       </div>
+      </div>
       {/* {!playerPredicted && ( */}
-        <button className="btn btn-login" onClick={submitPredictionHandler} disabled={(isDateTimeInPast(date, time) && true || playerPredicted && true)}>Submit Prediction</button>
+        <button className="btn btn-login" onClick={submitPredictionHandler} disabled={isDateTimeInPast(date, time) && true || playerPredicted && true}>Predict</button>
       {/* )} */}
       {result && (
         <>
-        {/* {playerOutcome = calculatePredictionPoints(actualHomeScore, actualAwayScore, playerResult.predictedHomeScore, playerResult.predictedAwayScore)} */}
       <div style={styles.popularPredictions}>
-        <span style={styles.yourResultTitle}>
-          Your Prediction
-        </span>
+        <span style={styles.popularTitle}>Your Prediction</span>
         <div style={styles.predictions}>
-          <span style={styles.prediction}>{playerResult.predictedHomeScore+"-"+playerResult.predictedAwayScore}</span>
+          <span style={styles.prediction}>3-1</span>
         </div>
       </div>
         </>
@@ -123,7 +134,8 @@ const PredictionCard = ({ userId, tournamentId, tournamentCountry, fixtureId, ro
 };
 const styles = {
     cardContainer: {
-      // width: '25%',
+      width: '100%', // Occupies full width of the container
+      maxWidth: '100%', // Set a max-width if you want to limit the card width on large screens
       backgroundColor: '#1A73E8',
       borderRadius: '10px',
       padding: '10px',
@@ -131,6 +143,7 @@ const styles = {
       textAlign: 'center',
       boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
       fontFamily: 'Arial, sans-serif',
+      margin: '0 auto', // Center the card horizontally
     },
     points: {
       color: '#FFD700',
@@ -139,18 +152,21 @@ const styles = {
     },
     teamsContainer: {
       display: 'flex',
-      justifyContent: 'space-between',
+    //   justifyContent: 'space-between',
       alignItems: 'center',
+      flexWrap: 'nowrap', // Prevents stacking
+    //   gap: '20px',
       marginBottom: '10px',
     },
     team: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      fontSize: '14px',
+      fontSize: '10px',
+      flex: 1, // Ensure that each team occupies equal space
     },
     flag: {
-      width: '40px',
+      width: '25px',
       height: '25px',
       marginBottom: '5px',
     },
@@ -160,6 +176,7 @@ const styles = {
       justifyContent: 'center',
       alignItems: 'center',
       gap: '10px',
+      flex: 1, // Ensure the middle container occupies equal space
     },
     dateContainer: {
       display: 'flex',
@@ -185,37 +202,13 @@ const styles = {
       backgroundColor: '#34A853',
       borderRadius: '5px',
       padding: '5px 0',
-      marginTop: '8px',
       fontWeight: 'bold',
       marginBottom: '10px',
     },
     popularPredictions: {
       fontSize: '12px',
     },
-    yourResultTitle: {
-      fontWeight: 'bold',
-      display: 'block',
-      marginBottom: '5px',
-    },
-    exactPlayerOutcomeTitle: {
-      backgroundColor: '#34A853',
-      borderRadius: '5px',
-      padding: '5px 0',
-      marginTop: '8px',
-      fontWeight: 'bold',
-      marginBottom: '10px',
-    },
-    resultPlayerOutcomeTitle: {
-      fontWeight: 'bold',
-      display: 'block',
-      marginBottom: '5px',
-    },
-    closePlayerOutcomeTitle: {
-      fontWeight: 'bold',
-      display: 'block',
-      marginBottom: '5px',
-    },
-    noPointsPlayerOutcomeTitle: {
+    popularTitle: {
       fontWeight: 'bold',
       display: 'block',
       marginBottom: '5px',
@@ -229,6 +222,6 @@ const styles = {
       padding: '5px',
       borderRadius: '5px',
     },
-  };
+};
 
-export default PredictionCard;
+export default MobilePredictionCard;

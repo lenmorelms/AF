@@ -3,6 +3,7 @@ import React from 'react';
 import Footer2 from '../components/reusables/Footer2';
 import Header2 from '../components/Header2';
 import MobileHeader from '../components/mobile/MobileHeader';
+import FooterMobile from '../components/reusables/FooterMobile';
 
 const HowITWorks = ({ deviceType }) => {
 
@@ -33,7 +34,7 @@ const HowITWorks = ({ deviceType }) => {
             Once a user selects a match, they can predict the final score, match winner, earning points based on the accuracy of their predictions.
         </p>
 
-        <h3 className='red' style={{textAlign: "center", paddingBottom: "5px"}}>
+        <h3 className='red' style={{textAlign: "center", padding: "2rem 0"}}>
             What Afripredictor Offers
         </h3>
         <p>
@@ -49,7 +50,7 @@ const HowITWorks = ({ deviceType }) => {
         </p>
         </div>
     </div>
-    <Footer2 />
+    {deviceType==="phone" ?<FooterMobile /> : <Footer2 />}
     </>
   );
 };

@@ -3,6 +3,7 @@ import React from 'react';
 import Header2 from '../components/Header2';
 import MobileHeader from '../components/mobile/MobileHeader';
 import Footer2 from '../components/reusables/Footer2';
+import FooterMobile from '../components/reusables/FooterMobile';
 
 const Privacy = ({ deviceType }) => {
 
@@ -25,7 +26,7 @@ const Privacy = ({ deviceType }) => {
             We are committed to maintaining transparency and ensuring your trust in how we handle your information. 
             By using Afripredictor, you consent to the practices described in this Privacy Policy
         </p>
-        <h3 className='red' style={{textAlign: "center", padding: "5rem"}}>
+        <h3 className='red' style={{textAlign: "center", padding: "2rem 0"}}>
             Key points covered in our Privacy Policy include:
         </h3>
         <ol>
@@ -61,7 +62,7 @@ const Privacy = ({ deviceType }) => {
 
         </div>
     </div>
-    <Footer2 />
+    {deviceType==="phone" ?<FooterMobile /> : <Footer2 />}
     </>
   );
 };

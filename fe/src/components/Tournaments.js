@@ -4,30 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { profile, tournaments } from "../redux/Actions";
 import Loading from "./reusables/Loading";
 import { checkTournIdMatch, isTokenValid, replaceSpacesWithHyphens, userData } from "./reusables/Functions";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Tournaments = ({ source }) => {
-    // const [userProfile, setUserProfile] = useState(userData);
     const dispatch = useDispatch();
+    const location = useLocation();
+    const navigate = useNavigate();
+    // const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("userData")) || null);
     // const profileData = useSelector((state) => state._profile);
-    // const { success: successProfile, data: dataProfile } = profileData;
+    // const { data: userData, loading: userDataLoading, success: userDatasuccess } = profileData;
     const tournamentsData = useSelector((state) => state._tournaments);
     const { data, loading, error, success } = tournamentsData;
-
-    // useMemo(() => {
-    //     dispatch(profile());
-    // }, [dispatch]);
-    // useEffect(() => {
-    //     if(dataProfile) {
-    //         setUserProfile(dataProfile.user);
-    //         console.log(userProfile);
-    //         console.log(userData);
-    //     }
-    // }, [dataProfile, userProfile, setUserProfile]);
 
     useMemo(() => {
         dispatch(tournaments());
     }, [dispatch]);
-    // tournament descriptions
     const GPL = `Predict, compete, and win with the GPL predictor game! After Nsoatreman's thrilling FA Cup victory, 
                 can they carry that momentum into the new season? Demonstrate your knowledge, forecast match results, 
                 and rise to the top. With GPL teams strengthening their squads, this season promises to be electrifying. 
@@ -50,7 +41,7 @@ const Tournaments = ({ source }) => {
                 success && (
                     <>
                     <h3 style={{textAlign: "center"}}>Tournaments</h3>
-                    <div className="container">
+                    <div className="">
                         <div className="flex-container-wrap">
                         {data.tournaments.length === 0 && (
                          <div className="center">
@@ -72,10 +63,10 @@ const Tournaments = ({ source }) => {
                                                      tournament.name=='UCL' ? UCL :
                                                      tournament.name=='MT8' ? MTN8 :
                                                      tournament.name=='NEDBANKCUP' ? NEDBANKCUP : "")}
-                                        buttonText={userData===null ? "" : !isTokenValid() ? 'Play Predictor' : source==`join` ? (checkTournIdMatch(userData.tournaments, tournament._id) ? `Play Predictor` : `Join Tournament`) : `Play Predictor`}
-                                        isPlayerPartOfTournament={userData===null ? "" : !isTokenValid() ? false : checkTournIdMatch(userData.tournaments, tournament._id)}
-                                        // buttonText={source==`join` ? (checkTournIdMatch(userProfile.tournaments, tournament._id) ? `Play Predictor` : `Join Tournament`) : `Play Predictor`}
-                                        // isPlayerPartOfTournament={checkTournIdMatch(userProfile.tournaments, tournament._id)}
+                                        // buttonText={userData===null ? "Play Predictor" : !isTokenValid() ? 'Play Predictor' : source==`join` ? (checkTournIdMatch(userData.tournaments, tournament._id) ? `Play Predictor` : `Join Tournament`) : `Play Predictor`}
+                                        // isPlayerPartOfTournament={userData===null ? "Play Predictor" : !isTokenValid() ? false : checkTournIdMatch(userData.tournaments, tournament._id)}
+                                        buttonText={userData===null ? "Play Predictor" : !isTokenValid() ? 'Play Predictor' : source==`join` ? `Play Predictor` : source===`play` ? (checkTournIdMatch(userData.tournaments, tournament._id) ? `Make Predictions` : `Join Tournament`): `Play Predictor`}
+                                        isPlayerPartOfTournament={userData===null ? "Play Predictor" : !isTokenValid() ? false : checkTournIdMatch(userData.tournaments, tournament._id)}
                                         source={source}
                                     />
                                 </div>

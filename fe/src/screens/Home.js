@@ -6,6 +6,7 @@ import CallToAction from "../components/CallToAction";
 import Tournaments from "../components/Tournaments";
 import InfoSection from "../components/InfoSection";
 import HeroSection from "../components/HeroSection";
+import FooterMobile from "../components/reusables/FooterMobile";
 
 const Home = ({ deviceType }) => {
     return (
@@ -19,7 +20,7 @@ const Home = ({ deviceType }) => {
                 <Tournaments source="join" />
                 <InfoSection deviceType={deviceType} />
             </div>
-            <Footer2 />
+            {deviceType==="phone" ?<FooterMobile /> : <Footer2 />}
         </div>
     );
 };

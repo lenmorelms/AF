@@ -7,7 +7,7 @@ import { joinTournament, profile, tournament } from '../redux/Actions';
 import Loading from './reusables/Loading';
 import Message from './reusables/Message';
 
-const Teams = () => {
+const Teams = ({ deviceType }) => {
     const [tournError, setTournError] = useState(null);
     // const [userDatails, setUserDatails] = useState(userData);
     const dispatch = useDispatch();
@@ -43,7 +43,8 @@ const Teams = () => {
     }, [joinError])
 
     return (
-        <div style={styles.container}>
+        <div className="vh" style={styles.container}>
+        {/* <div style={styles.container}> */}
             {joinLoading && <Loading />}
             {tournError && (
                 <Message variant="alert-danger" onClose={() => setTournError(null)}>
@@ -51,15 +52,24 @@ const Teams = () => {
                 </Message>
             )}
             <h2 style={styles.title}>Which team do you support?</h2>
-            <div style={styles.teamsGrid}>
+            <div className="flex-container-wrap" style={styles.teamsGrid}>
                 {data && data.teams.map((team, index) => (
-                    <Team key={index} name={team} logo={teamImage(data.country, team)} onClick={() => joinHandler(team)} />
+                    <div className="flex-team">
+                    <Team 
+                        key={index} 
+                        name={team} 
+                        logo={teamImage(data.country, team)}
+                        onClick={() => joinHandler(team)}
+                        logoWidth={deviceType==="phone" ? `50px` : `100px`} 
+                        logoHeight={deviceType==="phone" ? `50px` : `100px`} />
+                    </div>
                 ))}
             </div>
+        {/* </div> */}
         </div>
     );
 };
-
+// style={styles.teamsGrid}
 const styles = {
     container: {
         textAlign: 'center',
@@ -67,7 +77,7 @@ const styles = {
         backgroundColor: '#f7f7f7',
         borderRadius: '8px',
         boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-        maxWidth: '900px',
+        // maxWidth: '900px',
         margin: '0 auto',
     },
     title: {
