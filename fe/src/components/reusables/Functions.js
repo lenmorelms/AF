@@ -8,7 +8,7 @@ export const tournImage = (name) => {
   return `/tourn_logos/${name}.png`;
 };
 export const teamImage = (country, team) => {
-  return `/teams/${replaceSpacesWithHyphens(country)}/${replaceSpacesWithHyphens(team).toLowerCase()}.png`;
+  return `/teams/${replaceSpacesWithHyphens(country).toLowerCase()}/${replaceSpacesWithHyphens(team).toLowerCase()}.png`;
 };
 // export const heroImage = "https://media.istockphoto.com/id/615633948/photo/boy-kicking-a-soccer-ball-eveningthe-sun-was-falling.jpg?s=612x612&w=0&k=20&c=4FmbSVIIC8HvuhFPqMr6LX9Bd5YRscaE-VJif-_wskk=";
 export const heroImage = "/ap_imgs/hero.jpg";
