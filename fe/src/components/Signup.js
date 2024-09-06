@@ -36,6 +36,7 @@ const Signup = () => {
     useEffect(() => {
         if (error) {
           setLocalError("Failed To Sign Up, Try Again");
+          setShowSendCode(false);
           setTimeout(() => {
             setLocalError(null);
           }, 2500);
@@ -44,6 +45,7 @@ const Signup = () => {
       useEffect(() => {
         if (codeError) {
           setLocalError("Failed To Resend Code, Try Again");
+          setShowSendCode(true);
           setTimeout(() => {
             setLocalError(null);
           }, 2500);
@@ -57,6 +59,7 @@ const Signup = () => {
     useEffect(() => {
         if(success) {
             window.scrollTo(0, 0);
+            setShowSendCode(true);
         }
     }, [success]);
 
@@ -92,7 +95,8 @@ const Signup = () => {
     return (
         <>
         <div className="" style={{ textAlign: "center", padding: "5rem 1rem" }}>
-        {success ? <div>Account Created Successfully, <a href="/signin">Signin</a></div> : codeSuccess ? <div>Account verification link sent to email</div> : ""}
+        {success && <div>Account created, <a href="/signin">check email for verification link </a></div>}
+        {codeSuccess && <div>Account verification link sent to email</div>}
         {localError && (
           <Message variant="alert-danger" onClose={() => setLocalError(null)}>
             {localError}
@@ -188,7 +192,7 @@ const Signup = () => {
             </div>
             <div className="flex m-3">
             <p>Already have an account <Link to="/signin" className="p-2" style={{ textDecoration: "none" }}>Signin</Link> </p>
-            {/* {showSendCode && <button className="plain-button" onClick={submitResendHandler}><Link to="/" className="nav-item p-2" style={{ textDecoration: "none" }}>Resend Verification Code</Link></button>} */}
+            {showSendCode && <button className="plain-button" onClick={submitResendHandler}><Link to="/" className="nav-item p-2" style={{ textDecoration: "none" }}>Resend Verification Code</Link></button>}
             </div>
         </div>
         </>
