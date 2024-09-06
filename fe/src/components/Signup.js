@@ -53,7 +53,12 @@ const Signup = () => {
         // localStorage.removeItem("userInfo");
         setLocalError(null);
         if(codeSuccess && codeData.verificationToken) setShowSendCode(true)
-    }, [data])
+    }, [data]);
+    useEffect(() => {
+        if(success) {
+            window.scrollTo(0, 0);
+        }
+    }, [success]);
 
     const countryHandler = (value) => {
         setCountry(value)

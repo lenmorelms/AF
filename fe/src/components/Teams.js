@@ -60,8 +60,8 @@ const Teams = ({ deviceType }) => {
                         name={team} 
                         logo={teamImage(data.country, team)}
                         onClick={() => joinHandler(team)}
-                        logoWidth={deviceType==="phone" ? `50px` : `100px`} 
-                        logoHeight={deviceType==="phone" ? `50px` : `100px`} />
+                        logoWidth={deviceType==="phone" ? `40px` : `100px`} 
+                        logoHeight={deviceType==="phone" ? `40px` : `100px`} />
                     </div>
                 ))}
             </div>

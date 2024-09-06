@@ -187,6 +187,7 @@ userRouter.route("/verify").put(asyncHandler(async (req, res) => {
     try {
         // const verificationToken = req.params.id;
         const { verificationToken } = req.body;
+        console.log('Received verification token:', verificationToken);
         const user = await User.findOne({ verificationToken });
         if (user) {
             user.verified = true;
@@ -203,7 +204,7 @@ userRouter.route("/verify").put(asyncHandler(async (req, res) => {
               if (err) throw err;
               res.json({ token, user });
             });
-            // res.json({ user, verificationToken });
+            res.json({ user, verificationToken });
           } else {
             return res.status(404).json({ message: "Invalid verification code" });
           } 

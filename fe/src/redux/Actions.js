@@ -81,11 +81,13 @@ export const resetPassword = (vToken, password) => async(dispatch) => {
         dispatch({ type: RESET_PASSWORD_FAILURE, payload: error.message });
     }
 };
-export const verify = (vToken) => async(dispatch) => {
+export const verify = (verificationToken) => async(dispatch) => {
     try {
         dispatch({ type: VERIFY_REQUEST });
         const config = configFunction("application/json");
-        const response = await axios.put(`${serverUrl}/api/users/verify`, {vToken}, config);
+        console.log('Sending verification token:', verificationToken);
+        const response = await axios.put(`http://localhost:5000/api/users/verify`, {verificationToken}, config);
+        console.log('Sending verification token:', serverUrl);
         dispatch({ type: VERIFY_SUCCESS, payload: response.data });
     } catch (error) {
         dispatch({ type: VERIFY_FAILURE, payload: error.message });

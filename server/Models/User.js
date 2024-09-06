@@ -45,7 +45,7 @@ const UserSchema = mongoose.Schema(
     },
     verified: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     verificationToken: {
       type: String,

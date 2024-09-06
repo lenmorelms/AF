@@ -33,6 +33,7 @@ const Signin = () => {
 
     useEffect(() => {
         if (data && data.token) {
+          // window.scrollTo(0, 0);
           navigate(redirect);
         }
     }, [data, navigate, redirect]);
