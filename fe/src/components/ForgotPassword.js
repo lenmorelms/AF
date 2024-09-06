@@ -1,28 +1,27 @@
 import React, { useState } from "react";
 import Button from "./reusables/Button";
 import { useDispatch, useSelector } from "react-redux";
-// import { forgotPassword } from "../Redux/Actions";
-// import Loading from "../components/LoadingError/Loading";
-// import Message from "../components/LoadingError/Error";
+import { forgotPassword } from "../redux/Actions";
+import Loading from "./reusables/Loading";
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState("");
     const dispatch = useDispatch();
 
-    // const forgotPasswordData = useSelector((state) => state._forgotPassword);
-    // const { error, success, loading } = forgotPasswordData;
+    const forgotPasswordData = useSelector((state) => state._forgotPassword);
+    const { error, success, loading } = forgotPasswordData;
 
     const submitHandler = (e) => {
         e.preventDefault();
-        // dispatch(forgotPassword(email));
+        dispatch(forgotPassword(email));
     };
 
     return (
         <>
         <div className="" style={{ textAlign: "center", padding: "5rem 1rem" }}>
-        {/* {error && <Message variant="alert-danger">Failed to Recover Account, Try Again.</Message>} */}
-        {/* {success && <div style={{ color: "red" }}>Reset password link sent to your email</div>} */}
-        {/* {loading && <Loading />} */}
+        {error && <div variant="alert-danger">Failed to Recover Account, Try Again.</div>}
+        {success && <div style={{ color: "red" }}>Reset password link sent to your email</div>}
+        {loading && <Loading />}
         <div className="forgot-password">
             <h3>Forgot your password</h3>
             <p>Enter the email you use to login into AfriPredictor</p>

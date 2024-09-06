@@ -12,7 +12,7 @@ const Home = ({ deviceType }) => {
     return (
         <div>
             <div className="heading">
-                {/* {(deviceType=="phone") ? <MobileHeader /> : <Header2 />} */}
+                {(deviceType=="phone") ? <MobileHeader /> : <Header2 />}
             </div>
             <div className="body">
                 <HeroSection />

@@ -60,11 +60,11 @@ const HeroSection = () => {
       <div style={styles.subheading}>
         Join a league or start your own now!
       </div>
-      <CountDown />
-      {/* <div style={styles.buttonContainer}>
+      {/* <CountDown /> */}
+      <div style={styles.buttonContainer}>
         <a href={`/tournaments`}><button style={styles.button}>JOIN A FREE LEAGUE</button></a>
         <a href={`/tournaments`}><button style={styles.button}>START A FREE LEAGUE</button></a>
-      </div> */}
+      </div>
     </div>
   );
 };

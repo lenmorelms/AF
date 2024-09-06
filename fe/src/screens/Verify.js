@@ -22,7 +22,7 @@ const Verify = () => {
 
     useEffect(() => {
         if (data && success) {
-            navigate("/");
+            navigate("/signin");
         }
     }, [data, success, navigate]);
 

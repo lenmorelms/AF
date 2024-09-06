@@ -21,7 +21,7 @@ const Signup = () => {
     const [isAdmin] = useState(false);
 
     const [showPassword, setShowPassword] = useState(false);
-    const [showSendCode, setShowSendCode] = useState(false);
+    // const [showSendCode, setShowSendCode] = useState(false);
 
     const countryOptions = useMemo(() => countryList().getData(), []);
 
@@ -36,7 +36,7 @@ const Signup = () => {
     useEffect(() => {
         if (error) {
           setLocalError("Failed To Sign Up, Try Again");
-          setShowSendCode(false);
+        //   setShowSendCode(false);
           setTimeout(() => {
             setLocalError(null);
           }, 2500);
@@ -45,7 +45,7 @@ const Signup = () => {
       useEffect(() => {
         if (codeError) {
           setLocalError("Failed To Resend Code, Try Again");
-          setShowSendCode(true);
+        //   setShowSendCode(true);
           setTimeout(() => {
             setLocalError(null);
           }, 2500);
@@ -54,12 +54,12 @@ const Signup = () => {
       useEffect(() => {
         // localStorage.removeItem("userInfo");
         setLocalError(null);
-        if(codeSuccess && codeData.verificationToken) setShowSendCode(true)
+        // if(codeSuccess && codeData.verificationToken) setShowSendCode(true)
     }, [data]);
     useEffect(() => {
         if(success) {
             window.scrollTo(0, 0);
-            setShowSendCode(true);
+            // setShowSendCode(true);
         }
     }, [success]);
 
@@ -87,23 +87,23 @@ const Signup = () => {
             dispatch(register(email, username, country.label, password, isAdmin));
         }
     };
-    const submitResendHandler = (e) => {
-        e.preventDefault();
-        dispatch(resendCode(data._id));
-    };
+    // const submitResendHandler = (e) => {
+    //     e.preventDefault();
+    //     dispatch(resendCode(data._id));
+    // };
 
     return (
         <>
         <div className="" style={{ textAlign: "center", padding: "5rem 1rem" }}>
-        {success && <div>Account created, <a href="/signin">check email for verification link </a></div>}
-        {codeSuccess && <div>Account verification link sent to email</div>}
+        {success && <div>Account created, check email for verification link</div>}
+        {/* {codeSuccess && <div>Account verification link sent to email</div>} */}
         {localError && (
           <Message variant="alert-danger" onClose={() => setLocalError(null)}>
             {localError}
           </Message>
           )}
           {loading && <Loading />}
-          {codeLoading && <Loading />}
+          {/* {codeLoading && <Loading />} */}
             <div className="red heading">Don't miss out on the fun <i class="fa fa-sign-in" aria-hidden="true"></i></div>
             <div className="login-form d-flex justify-content-center align-items-center">
                 <form onSubmit={submitHandler}>
@@ -192,7 +192,7 @@ const Signup = () => {
             </div>
             <div className="flex m-3">
             <p>Already have an account <Link to="/signin" className="p-2" style={{ textDecoration: "none" }}>Signin</Link> </p>
-            {showSendCode && <button className="plain-button" onClick={submitResendHandler}><Link to="/" className="nav-item p-2" style={{ textDecoration: "none" }}>Resend Verification Code</Link></button>}
+            {/* {showSendCode && <button className="plain-button" onClick={submitResendHandler}><Link to="/" className="nav-item p-2" style={{ textDecoration: "none" }}>Resend Verification Code</Link></button>} */}
             </div>
         </div>
         </>
