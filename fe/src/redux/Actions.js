@@ -230,7 +230,7 @@ export const tournament = (id) => async(dispatch) => {
         dispatch({ type: TOURNAMENT_REQUEST });
         const token = localStorage.getItem("token");
         const config = configFunction("application/json", `Bearer ${token}`);
-        const response = await axios.get(`/api/tournaments/${id}`, config);
+        const response = await axios.get(`https://afripredictor-server.onrender.com/api/tournaments/${id}`, config);
         dispatch({ type: TOURNAMENT_SUCCESS, payload: response.data.tournament });
     } catch (error) {
         dispatch({ type: TOURNAMENT_FAILURE, payload: error.message });
@@ -241,7 +241,7 @@ export const tournaments = () => async(dispatch) => {
         dispatch({ type: TOURNAMENTS_REQUEST });
         const token = localStorage.getItem("token");
         const config = configFunction("application/json", `Bearer ${token}`);
-        const response = await axios.get(`/api/tournaments`, config);
+        const response = await axios.get(`https://afripredictor-server.onrender.com/api/tournaments`, config);
         dispatch({ type: TOURNAMENTS_SUCCESS, payload: response.data });
     } catch (error) {
         dispatch({ type: TOURNAMENTS_FAILURE, payload: error.message });
