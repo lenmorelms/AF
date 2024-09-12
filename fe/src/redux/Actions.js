@@ -110,17 +110,17 @@ export const profile = () => async(dispatch) => {
         const config = configFunction("application/json", `Bearer ${token}`);
         const response = await axios.get(`${serverUrl}/api/users/profile`, config);
         localStorage.setItem('userData', JSON.stringify(response.data.user));
-        dispatch({ type: PROFILE_SUCCESS, payload: response.data });
+        dispatch({ type: PROFILE_SUCCESS, payload: response.data.user });
     } catch (error) {
         dispatch({ type: PROFILE_FAILURE, payload: error.message });
     }
 };
-export const updateProfile = (id, email, username) => async(dispatch) => {
+export const updateProfile = (id, password) => async(dispatch) => {
     try {
         dispatch({ type: UPDATE_PROFILE_REQUEST });
         const token = localStorage.getItem("token");
         const config = configFunction("application/json", `Bearer ${token}`);
-        const response = await axios.put(`${serverUrl}/api/users/profile/${id}`, {email, username}, config);
+        const response = await axios.put(`${serverUrl}/api/users/profile/${id}`, {password}, config);
         dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: response.data });
     } catch (error) {
         dispatch({ type: UPDATE_PROFILE_FAILURE, payload: error.message });
@@ -132,6 +132,7 @@ export const deleteProfile = (id) => async(dispatch) => {
         const token = localStorage.getItem("token");
         const config = configFunction("application/json", `Bearer ${token}`);
         const response = await axios.delete(`${serverUrl}/api/users/profile/${id}`, config);
+        localStorage.clear();
         dispatch({ type: DELETE_PROFILE_SUCCESS, payload: response.data });
     } catch (error) {
         dispatch({ type: DELETE_PROFILE_FAILURE, payload: error.message });
@@ -232,7 +233,7 @@ export const tournament = (id) => async(dispatch) => {
         dispatch({ type: TOURNAMENT_REQUEST });
         const token = localStorage.getItem("token");
         const config = configFunction("application/json", `Bearer ${token}`);
-        const response = await axios.get(`${serverUrl}api/tournaments/${id}`, config);
+        const response = await axios.get(`${serverUrl}/api/tournaments/${id}`, config);
         dispatch({ type: TOURNAMENT_SUCCESS, payload: response.data.tournament });
     } catch (error) {
         dispatch({ type: TOURNAMENT_FAILURE, payload: error.message });

@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { thunk } from 'redux-thunk'; // Use Redux Thunk for async actions
-import { createLeagueReducer, fixturesReducer, forgotPasswordReducer, joinLeagueReducer, joinTournamentReducer, leagueRanksReducer, leaguesReducer, loginReducer, logoutReducer, playerPointsReducer, predictReducer, profileReducer, registerReducer, resendCodeReducer, resetPasswordReducer, tournamentReducer, tournamentRoundsReducer, tournamentsReducer, tournamentTableReducer, verifyReducer } from './Reducers';
+import { createLeagueReducer, deleteProfileReducer, fixturesReducer, forgotPasswordReducer, joinLeagueReducer, joinTournamentReducer, leagueRanksReducer, leaguesReducer, loginReducer, logoutReducer, playerPointsReducer, predictReducer, profileReducer, registerReducer, resendCodeReducer, resetPasswordReducer, tournamentReducer, tournamentRoundsReducer, tournamentsReducer, tournamentTableReducer, updateProfileReducer, verifyReducer } from './Reducers';
 
 const rootReducer = combineReducers({
     // reducers
@@ -13,6 +13,8 @@ const rootReducer = combineReducers({
     _tournaments: tournamentsReducer,
     _tournament: tournamentReducer,
     _profile: profileReducer,
+    _updateProfile: updateProfileReducer,
+    _deleteProfile: deleteProfileReducer,
     _logout: logoutReducer,
     _joinTournament: joinTournamentReducer,
     _tournamentRounds: tournamentRoundsReducer,

@@ -773,4 +773,105 @@ button.predict-box:hover {
   text-decoration: underline;
 }
 
+/* PROFILE PAGE */
+.profile-body {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left; /* Aligns text to the left */
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.profile-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 1.5rem;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-info h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #1c1e4f; 
+}
+
+.profile-info p {
+  font-size: 1rem;
+  color: #4A5568;
+  margin-top: 0.2rem;
+}
+
+.tournaments-section {
+  margin-top: 2rem;
+}
+
+.tournaments-section h3 {
+  color: #1c1e4f;
+  margin-bottom: 1rem;
+}
+
+.tournaments-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 1px;
+}
+
+.tournaments-section li {
+  padding: 0.8rem;
+  background-color: #ffc300;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.tournaments-section li a {
+  color: #ffff;
+  text-decoration: none;
+}
+
+.password-section {
+  margin-top: 2rem;
+}
+
+.password-section input {
+  margin-bottom: 1rem;
+  padding: 0.8rem;
+  width: 100%;
+  border: 1px solid #CBD5E0;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.delete-account-section {
+  margin-top: 2rem;
+  text-align: center;
+}
+.btn-profile {
+  background-color: #1c1e4f;
+  color: #FFF;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-danger {
+  background-color: #e74c3c;
+  color: #FFF;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
 /* SIGN UP COMPONENT */

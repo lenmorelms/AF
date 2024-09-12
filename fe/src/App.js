@@ -24,6 +24,7 @@ import News from './screens/News';
 import RoundPredictions from "./screens/RoundPredictions";
 import NotFound from './screens/NotFound';
 import Store from './screens/Store';
+import Profile from './screens/Profile';
 
 function App() {
   const [deviceType, setDeviceType] = useState("");
@@ -52,6 +53,7 @@ function App() {
         <Route exact path='/news' element={<News deviceType={deviceType} />} />
         <Route exact path='/store' element={<Store deviceType={deviceType} />} />
 
+        <Route exact path='/profile' element={<ProtectedRoute element={Profile} deviceType={deviceType} />} />
         <Route exact path='/tournaments' element={<ProtectedRoute element={JoinTournament} deviceType={deviceType} />} />
         <Route exact path='/:id/teams' element={<ProtectedRoute element={ChooseTeam} deviceType={deviceType} />} />
         <Route exact path='/:id/predictions' element={<ProtectedRoute element={Predictions} deviceType={deviceType} />} />

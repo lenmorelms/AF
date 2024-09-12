@@ -21,7 +21,7 @@ const sendVerificationEmail = async (email, verificationToken, source) => {
     const mailOptions = {
         from: 'lmslernz@gmail.com',
         to: email,
-        subject: 'Account Verification',
+        subject: 'AfriPredictor Account Verification',
         html: source === "register" ? `<p>Please click <a href="https://www.afripredictor.com/verify/${verificationToken}">here</a> to verify your account.</p>` : `<p>Please click <a href="https://www.afripredictor.com/reset-password/${verificationToken}">here</a> to reset your password.</p>`
     };
 

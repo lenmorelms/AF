@@ -256,8 +256,8 @@ userRouter.route("/profile/:id").put(protect, asyncHandler(async (req, res) => {
         
         if (user) {
             user.username = req.body.username || user.username;
-            user.age = req.body.age || user.age;
-            user.gender = req.body.gender || user.gender;
+            // user.age = req.body.age || user.age;
+            // user.gender = req.body.gender || user.gender;
             user.email = req.body.email || user.email;
             user.country = req.body.country || user.country;
             user.tournaments = req.body.tournaments || user.tournaments;
@@ -265,8 +265,8 @@ userRouter.route("/profile/:id").put(protect, asyncHandler(async (req, res) => {
             user.isAdmin = req.body.isAdmin || user.isAdmin;
             user.verified = req.body.verified || user.verified;
             user.verificationToken = req.body.verificationToken || user.verificationToken;
-            // const salt = await bcrypt.genSalt(10);
-            // user.password = await bcrypt.hash(sanitizeInput(req.body.password), salt) || user.password;
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(sanitizeInput(req.body.password), salt) || user.password;
 
             await user.save();
             res.status(201).json({ message: "Profile updated successfully", user }); 

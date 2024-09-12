@@ -6,18 +6,20 @@ import { tournImage } from './Functions';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { tournament } from '../../redux/Actions';
+import Loading from './Loading';
 
 const TournamentHeader = ({ tournamentId }) => {
   const dispatch = useDispatch();
   const tournamentData = useSelector((state) => state._tournament);
-  const { data, success } = tournamentData;
+  const {loading, data, success } = tournamentData;
 
   useEffect(() => {
     dispatch(tournament(tournamentId));
   }, [dispatch, tournamentId]);
+
     return (
         <div className="header-bar">
-          <div className="header-bar__left">
+            <div className="header-bar__left">
             <Link to="/tournaments" className="header-bar__link">
               <FontAwesomeIcon icon={faArrowLeft} style={styles.arrowIcon} /> Tournaments
             </Link>
