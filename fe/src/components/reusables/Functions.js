@@ -161,3 +161,31 @@ export const calculatePredictionPoints = (actualHomeScore, actualAwayScore, pred
   // If none of the conditions match, return no points
   return "noPoints";
 }
+
+export const convertUTCToLocal = (utcDateString) =>{
+  // Create a Date object in UTC
+  const utcDate = new Date(utcDateString);
+  
+  // Convert to local time using the browser's time zone settings
+  const localDate = new Date(utcDate.toLocaleString());
+
+  return localDate;
+}
+
+export const separateDateTime = (dateTime) => {
+  // Get the date part (exclude day of the week)
+  const options = { year: 'numeric', month: 'short', day: 'numeric' }; 
+  const date = dateTime.toLocaleDateString('en-US', options); // Example: "Sep 16, 2024"
+
+  // Get the time part (exclude seconds)
+  const time = dateTime.toTimeString().split(' ')[0].slice(0, 5); // Example: "15:18"
+
+  return { date, time };
+}
+
+export const isLocalTimeGreater = (dateTime) => {
+  const localTime = new Date(); // Current local time
+  const passedTime = new Date(dateTime); // Convert passed dateTime to a Date object
+
+  return localTime > passedTime;
+}

@@ -40,7 +40,6 @@ const Prediction = ({ deviceType, tournamentId }) => {
       {success && (
         <div className="vh">
         <div style={styles.predictionCard} className="flex-container-wrap">
-          {console.log(fixtureData.length)}
         {fixtureData.length === 0 && (
           <div className="center">
             NO FIXTURES AS OF YET...
@@ -57,6 +56,7 @@ const Prediction = ({ deviceType, tournamentId }) => {
             round={d.round}
             date={d.date}
             time={d.time}
+            dateTime={d.dateTime}
             homeTeamId={d.homeTeamId}
             awayTeamId={d.awayTeamId}
             actualHomeScore={d.actualHomeScore}
@@ -74,6 +74,7 @@ const Prediction = ({ deviceType, tournamentId }) => {
             round={d.round}
             date={d.date}
             time={d.time}
+            dateTime={d.dateTime}
             homeTeamId={d.homeTeamId}
             awayTeamId={d.awayTeamId}
             actualHomeScore={d.actualHomeScore}

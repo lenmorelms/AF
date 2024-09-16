@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { teamImage, formatDate, isDateTimeInPast } from "./Functions";
+import { teamImage, formatDate, isDateTimeInPast, separateDateTime, convertUTCToLocal, isLocalTimeGreater } from "./Functions";
 import Team from "./Team";
 import { useDispatch, useSelector } from "react-redux";
 import { playerPredictions, tournament } from "../../redux/Actions";
 import Loading from "./Loading";
 import Message from "./Message";
 
-const MobilePredictionCard = ({ userId, tournamentId, tournamentCountry, fixtureId, round, date, time, homeTeamId, awayTeamId, actualHomeScore, actualAwayScore, playerPredicted, result, playerResult }) => {
+const MobilePredictionCard = ({ userId, tournamentId, tournamentCountry, fixtureId, round, date, time, dateTime, homeTeamId, awayTeamId, actualHomeScore, actualAwayScore, playerPredicted, result, playerResult }) => {
     
     const [homeScore, setHomeScore] = useState(actualHomeScore);
     const [awayScore, setAwayScore] = useState(actualAwayScore);
@@ -61,8 +61,8 @@ const MobilePredictionCard = ({ userId, tournamentId, tournamentCountry, fixture
           )}
       <div>
       <div style={styles.dateContainer}> 
-            <p>{formatDate(date)}</p>
-            <p>{time}</p>
+            <p>{date ? formatDate(date) : separateDateTime(convertUTCToLocal(dateTime)).date}</p>
+            <p>{time ? time : separateDateTime(convertUTCToLocal(dateTime)).time}</p>
           </div>
       <div style={styles.teamsContainer}>
         <div style={styles.team}>
@@ -73,7 +73,6 @@ const MobilePredictionCard = ({ userId, tournamentId, tournamentCountry, fixture
             <p>{formatDate(date)}</p>
             <p>{time}</p>
           </div> */}
-          {playerResult && console.log("playerResults "+playerResult.predictedHomeScore)}
           <div style={styles.scoreContainer}>
           <input 
             type="number"
@@ -117,16 +116,20 @@ const MobilePredictionCard = ({ userId, tournamentId, tournamentCountry, fixture
       </div>
       </div>
       {/* {!playerPredicted && ( */}
-        <button className="btn btn-login" onClick={submitPredictionHandler} disabled={isDateTimeInPast(date, time) && true || playerPredicted && true}>Predict</button>
+        <button className="btn btn-login" onClick={submitPredictionHandler} disabled={date ? isDateTimeInPast(date, time) && true || playerPredicted && true : (isLocalTimeGreater(dateTime) && true || playerPredicted && true)}>Predict</button>
       {/* )} */}
       {result && (
         <>
-      <div style={styles.popularPredictions}>
-        <span style={styles.popularTitle}>Your Prediction</span>
-        <div style={styles.predictions}>
-          <span style={styles.prediction}>3-1</span>
+        {playerResult && (
+          <div style={styles.popularPredictions}>
+          <span style={styles.popularTitle}>
+            Your Prediction
+          </span>
+          <div style={styles.predictions}>
+            <span style={styles.prediction}>{playerResult.predictedHomeScore+"-"+playerResult.predictedAwayScore}</span>
+          </div>
         </div>
-      </div>
+        )}
         </>
       )}
     </div>

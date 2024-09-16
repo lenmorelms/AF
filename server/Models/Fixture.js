@@ -5,8 +5,14 @@ const FixtureSchema = mongoose.Schema(
         date: {
             type: Date,
             required: false,
+            default: null,
         },
         time: {
+            type: String,
+            required: false,
+            default: null,
+        },
+        dateTime: {
             type: String,
             required: true,
         },

@@ -145,13 +145,13 @@ export const deleteTournament = (id) => async (dispatch, getState) => {
 
 // ###FIXTURES###
 // CREATE TOURNAMENT FIXTURE ***used***
-export const createFixture = (id, date, time, round, homeTeamId, awayTeamId) => async (dispatch, getState) => {
+export const createFixture = (id, dateTime, round, homeTeamId, awayTeamId) => async (dispatch, getState) => {
     try {
         dispatch({ type: CREATE_FIXTURE_REQUEST });
         const { _login: { data } } = getState();
         const token = localStorage.getItem("token");
         const config = configFunction("application/json", `Bearer ${token}`);
-        const response = await axios.post(`/api/fixtures/${id}`, {date, time, round, homeTeamId, awayTeamId}, config);
+        const response = await axios.post(`/api/fixtures/${id}`, {dateTime, round, homeTeamId, awayTeamId}, config);
         dispatch({ type: CREATE_FIXTURE_SUCCESS, payload: response.data });
 
     } catch (error) {

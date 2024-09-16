@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { calculatePredictionPoints, formatDate, isDateTimeInPast, teamImage } from "./Functions";
+import { calculatePredictionPoints, convertUTCToLocal, formatDate, isDateTimeInPast, isLocalTimeGreater, separateDateTime, teamImage } from "./Functions";
 import Team from "./Team";
 import { useDispatch, useSelector } from "react-redux";
 import { playerPredictions, tournament } from "../../redux/Actions";
 import Loading from "./Loading";
 import Message from "./Message";
 
-const PredictionCard = ({ userId, tournamentId, tournamentCountry, fixtureId, round, date, time, homeTeamId, awayTeamId, actualHomeScore, actualAwayScore, playerPredicted, result, playerResult }) => {
+const PredictionCard = ({ userId, tournamentId, tournamentCountry, fixtureId, round, date, time, dateTime, homeTeamId, awayTeamId, actualHomeScore, actualAwayScore, playerPredicted, result, playerResult }) => {
     
     const [homeScore, setHomeScore] = useState(actualHomeScore);
     const [awayScore, setAwayScore] = useState(actualAwayScore);
@@ -67,10 +67,9 @@ const PredictionCard = ({ userId, tournamentId, tournamentCountry, fixtureId, ro
         </div>
         <div style={styles.middleContainer}>
           <div style={styles.dateContainer}>
-            <p>{formatDate(date)}</p>
-            <p>{time}</p>
+            <p>{date ? formatDate(date) : separateDateTime(convertUTCToLocal(dateTime)).date}</p>
+            <p>{time ? time : separateDateTime(convertUTCToLocal(dateTime)).time}</p>
           </div>
-          {/* {playerResult && console.log("playerResults "+playerResult.predictedHomeScore)} */}
           <div style={styles.scoreContainer}>
           <input 
             type="number"
@@ -103,19 +102,21 @@ const PredictionCard = ({ userId, tournamentId, tournamentCountry, fixtureId, ro
         </div>
       </div>
       {/* {!playerPredicted && ( */}
-        <button className="btn btn-login" onClick={submitPredictionHandler} disabled={(isDateTimeInPast(date, time) && true || playerPredicted && true)}>Submit Prediction</button>
+        <button className="btn btn-login" onClick={submitPredictionHandler} disabled={date ? (isDateTimeInPast(date, time) && true || playerPredicted && true) : (isLocalTimeGreater(dateTime) && true || playerPredicted && true)}>Submit Prediction</button>
       {/* )} */}
       {result && (
         <>
         {/* {playerOutcome = calculatePredictionPoints(actualHomeScore, actualAwayScore, playerResult.predictedHomeScore, playerResult.predictedAwayScore)} */}
-      <div style={styles.popularPredictions}>
-        <span style={styles.yourResultTitle}>
-          Your Prediction
-        </span>
-        <div style={styles.predictions}>
-          <span style={styles.prediction}>{playerResult.predictedHomeScore+"-"+playerResult.predictedAwayScore}</span>
-        </div>
-      </div>
+        {playerResult && (
+          <div style={styles.popularPredictions}>
+          <span style={styles.yourResultTitle}>
+            Your Prediction
+          </span>
+          <div style={styles.predictions}>
+            <span style={styles.prediction}>{playerResult.predictedHomeScore+"-"+playerResult.predictedAwayScore}</span>
+          </div>
+        </div> 
+        )}
         </>
       )}
     </div>

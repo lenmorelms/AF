@@ -72,13 +72,13 @@ fixtureRouter.route("/:tournamentId/fixtures/rounds").get(adminProtect, asyncHan
 fixtureRouter.route("/:tournamentId").post(adminProtect, asyncHandler(async (req, res) => {
     try {
         const { tournamentId } = req.params;
-        const { date, time, round, homeTeamId, awayTeamId } = req.body;
+        const { dateTime, round, homeTeamId, awayTeamId } = req.body;
         // Check if fixture exists
         const fixture = await Fixture.findOne({ tournamentId, round, homeTeamId, awayTeamId });
         if(fixture) {
             res.status(400).json({ message: "Fixture already exists" });
         } else {
-            const newFixture = new Fixture({ tournamentId, date, time, round, homeTeamId, awayTeamId });
+            const newFixture = new Fixture({ tournamentId, dateTime, round, homeTeamId, awayTeamId });
             await newFixture.save();
             res.status(201).json({ message: "Fixture created successfully", newFixture });
         }

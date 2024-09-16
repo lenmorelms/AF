@@ -23,7 +23,7 @@ predictionRouter.route("/:tournamentId/rounds").get(protect, asyncHandler(async 
     }
 }));
 // get tournament fixtures
-predictionRouter.route("/:tournamentId/:userId").get(protect, asyncHandler(async (req, res) => {
+predictionRouter.route("/:tournamentId/:userId").get(asyncHandler(async (req, res) => {
     try {
         const tournamentId = req.params.tournamentId;
         const userId = req.params.userId;
@@ -51,6 +51,7 @@ predictionRouter.route("/:tournamentId/:userId").get(protect, asyncHandler(async
             const renderedTournamentFixtures = tournamentPlayerFixtures.map(obj => ({
                 "_id": obj["_doc"]["_id"],
                 "date": obj["_doc"]["date"],
+                "dateTime": obj["_doc"]["dateTime"],
                 "round": obj["_doc"]["round"],
                 "time": obj["_doc"]["time"],
                 "homeTeamId": obj["_doc"]["homeTeamId"],
