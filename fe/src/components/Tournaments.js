@@ -30,7 +30,10 @@ const Tournaments = ({ source }) => {
                  Can anyone dethrone the reigning champs? Predict match outcomes, earn points, 
                  and outsmart fellow fans. With new signings and coaching changes, this season is shaping up to be unpredictable. 
                  Sign up now and show off your expertise!`;
-    const UCL = "";
+    const UCL = `Join the UCL predictor game and experience the thrill of Europe's elite competition like never before! With an expanded
+                 format featuring more teams and exciting new match-ups, can anyone stop Real Madrid from dominating? Predict match outcomes,
+                 earn points, and outsmart fellow fans as the continent's top teams clash. New format, new excitement - sign up now and prove
+                  your UCL expertise!`;
     const MTN8 = "";
     const NEDBANKCUP = "";
     return (

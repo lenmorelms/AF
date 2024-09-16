@@ -6,12 +6,15 @@ import User from "../Models/User.js";
 import sendVerificationEmail from "../utils/email.js";
 import { capitalizeFirstLetter, sanitizeInput } from "../utils/formatInput.js";
 import { adminProtect, protect } from "../Middleware/auth.js";
+import Fixture from "../Models/Fixture.js";
+import Prediction from "../Models/Prediction.js";
+import PlayerTable from "../Models/TournamentPlayerTable.js";
 
 const userRouter = express.Router();
 // register
 userRouter.route("/register").post(asyncHandler(async (req, res) => {
     try {
-        const { email, username, country, password, isAdmin } = req.body;
+        const { email, username, country, tournaments, password, verified, isAdmin } = req.body;
         const sanitizedUsername = capitalizeFirstLetter(username);
         const salt = await bcrypt.genSalt(10);
         const sanitizedPassword = await bcrypt.hash(sanitizeInput(password), salt);
@@ -35,8 +38,10 @@ userRouter.route("/register").post(asyncHandler(async (req, res) => {
             email,
             username: sanitizedUsername,
             country,
+            tournaments,
             password: sanitizedPassword,
             isAdmin,
+            verified,
             verificationToken
         });
         await user.save();
@@ -50,7 +55,7 @@ userRouter.route("/register").post(asyncHandler(async (req, res) => {
 // admin create account
 userRouter.route("/admin/register").post(asyncHandler(async (req, res) => {
     try {
-        const { email, isAdmin, verifield } = req.body;
+        const { email, isAdmin, verified } = req.body;
         const username = capitalizeFirstLetter(req.body.username);
         const password = sanitizeInput(req.body.password);
 
@@ -60,7 +65,7 @@ userRouter.route("/admin/register").post(asyncHandler(async (req, res) => {
         if(adminExists) res.status(409).json({ message: "Admin already exists" });
         if(usernameTaken) res.status(409).json({ message: "Username is taken" });
 
-        const admin = new User({ email, usernam, password, isAdmin, verifield });
+        const admin = new User({ email, usernam, password, isAdmin, verified });
         const salt = await bcrypt.genSalt(10);
         admin.password = await bcrypt.hash(password, salt);
         await admin.save(); 
@@ -123,9 +128,9 @@ userRouter.route("/login").post(asyncHandler(async (req, res) => {
         if (!isMatch) {
            return res.status(401).json({ message: 'Invalid credentials' });
         }
-        // Check if user is verifield
+        // Check if user is verified
         if(user.verified === false) {
-            return res.status(401).json({ message: 'User not verifield' });
+            return res.status(401).json({ message: 'User not verified' });
         }
         // Generate JWT token
         const payload = {
@@ -319,6 +324,93 @@ userRouter.route("/logout").post(protect, asyncHandler(async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Sever Error..."); 
+    }
+}));
+
+
+userRouter.route("/bot/addtables/:id/:tournamentId").post(asyncHandler(async (req, res) => {
+    try {
+        const { id, tournamentId } = req.params;
+        const { username, team } = req.body;
+
+        const playerExists = await PlayerTable.findOne({ tournamentId, userId: id });
+        if(playerExists) {
+            res.status(2024).json({ message: "Player is part of the table" });
+        } else {
+            const addPlayer = new PlayerTable({
+                tournamentId,
+                userId: id,
+                username,
+                team
+            });
+            await addPlayer.save();
+            res.status(201).json({ message: "Player added to table", addPlayer });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Sever Error...");
+    }
+}));
+// BOT USERES PREDICTIONS
+const getRandomNumber = () => {
+    return Math.floor(Math.random() * 6);
+}
+userRouter.route("/bot/predictions/:id").post(asyncHandler(async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { tournamentId, round } = req.body;
+        const fixtures = await Fixture.find({ tournamentId, round });
+        
+        if (fixtures && fixtures.length > 0) {
+            const predictions = [];
+
+            for (const fixture of fixtures) {
+                const fixtureId = fixture._id;
+                const checkPlayerPrediction = await Prediction.findOne({ userId: id, tournamentId, fixtureId });
+
+                if (checkPlayerPrediction) {
+                    console.log("Prediction already exists for a fixture" );
+                } else {
+                    const prediction = new Prediction({
+                        userId: id, 
+                        tournamentId, 
+                        fixtureId, 
+                        round, 
+                        predictedHomeScore: getRandomNumber(), 
+                        predictedAwayScore: getRandomNumber()
+                    });
+                    await prediction.save();
+                    predictions.push(prediction);
+                    console.log(fixtureId+` Prediction Added`);
+                }
+            }
+
+            res.status(201).json({ message: "Predictions saved", predictions });
+        } else {
+            res.status(204).json({ message: "No fixtures found" });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error...");
+    }
+}));
+
+userRouter.route("/bot/verifyall").put(asyncHandler(async (req, res) => {
+    try {
+        const users = await User.find({ verified: false });
+        if(users && users.length > 0) {
+            for(const user of users) {
+                user.verified = true;
+                await user.save();
+                console.log(user.username+` Verified`);
+            }
+            res.status(201).json({ message: "Users verifield"});
+        } else {
+            res.status(204).json({ message: "No users found" });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Sever Error...");
     }
 }));
 

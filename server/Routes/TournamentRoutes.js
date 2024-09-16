@@ -10,7 +10,7 @@ import PlayerTable from "../Models/TournamentPlayerTable.js";
 const tournamentRouter = express.Router();
 
 // create tournament
-tournamentRouter.route("/").post(adminProtect, asyncHandler(async (req, res) => {
+tournamentRouter.route("/").post(asyncHandler(async (req, res) => {
     try {
         const { name, category, country, teams } = req.body;
         const checkTournament = await Tournament.findOne({ name });
