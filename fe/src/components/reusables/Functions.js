@@ -172,24 +172,17 @@ export const convertUTCToLocal = (utcDateString) =>{
   return localDate;
 }
 export const convertUTCToLocalMobile = (utcDateString) => {
-  // Parse the UTC date string to a Date object
+  // Create a Date object from the UTC date string
   const utcDate = new Date(utcDateString);
 
-  // Use Intl.DateTimeFormat to format the date to the user's local time
-  const localDate = new Intl.DateTimeFormat('default', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false,
-    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, // Get the local time zone
-  }).format(utcDate);
+  // Get the timezone offset in minutes and convert it to milliseconds
+  const timezoneOffsetInMs = utcDate.getTimezoneOffset() * 60 * 1000;
 
-  return localDate;
-}
+  // Subtract the offset to convert to the local time zone
+  const localTime = new Date(utcDate.getTime() - timezoneOffsetInMs);
 
+  return localTime;
+};
 
 export const separateDateTime = (dateTime) => {
   // Get the date part (exclude day of the week)
