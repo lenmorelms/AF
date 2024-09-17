@@ -63,8 +63,8 @@ const MobilePredictionCard = ({ userId, tournamentId, tournamentCountry, fixture
           <div style={styles.dateContainer}> 
               {/* <p>{date ? formatDate(date) : separateDateTime(convertUTCToLocal(dateTime)).date}</p>
               <p>{time ? time : separateDateTime(convertUTCToLocal(dateTime)).time}</p> */}
-              <p>{convertUTCToLocal(dateTime)}</p>
-              <p>{convertUTCToLocal(dateTime)}</p>
+              <p>{dateTime}</p>
+              <p>{dateTime}</p>
           </div>
       <div style={styles.teamsContainer}>
         <div style={styles.team}>
