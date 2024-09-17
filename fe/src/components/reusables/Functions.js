@@ -171,6 +171,19 @@ export const convertUTCToLocal = (utcDateString) =>{
 
   return localDate;
 }
+export const convertUTCToLocalMobile = (utcDateString) => {
+  // Create a Date object from the UTC string
+  const utcDate = new Date(utcDateString);
+
+  // Get the local time offset in minutes
+  const timeOffset = utcDate.getTimezoneOffset();
+
+  // Adjust the UTC date by the offset to get local time
+  const localDate = new Date(utcDate.getTime() - (timeOffset * 60000));
+
+  return localDate;
+};
+
 
 export const separateDateTime = (dateTime) => {
   // Get the date part (exclude day of the week)

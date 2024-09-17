@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { teamImage, formatDate, isDateTimeInPast, separateDateTime, convertUTCToLocal, isLocalTimeGreater } from "./Functions";
+import { teamImage, formatDate, isDateTimeInPast, separateDateTime, convertUTCToLocal, isLocalTimeGreater, convertUTCToLocalMobile } from "./Functions";
 import Team from "./Team";
 import { useDispatch, useSelector } from "react-redux";
 import { playerPredictions, tournament } from "../../redux/Actions";
@@ -63,7 +63,7 @@ const MobilePredictionCard = ({ userId, tournamentId, tournamentCountry, fixture
           <div style={styles.dateContainer}> 
               {/* <p>{date ? formatDate(date) : separateDateTime(convertUTCToLocal(dateTime)).date}</p>
               <p>{time ? time : separateDateTime(convertUTCToLocal(dateTime)).time}</p> */}
-              <p>{convertUTCToLocal(dateTime)}</p>
+              <p>{convertUTCToLocalMobile(dateTime)}</p>
               {/* <p>{dateTime}</p> */}
           </div>
       <div style={styles.teamsContainer}>
