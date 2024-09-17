@@ -414,4 +414,33 @@ userRouter.route("/bot/verifyall").put(asyncHandler(async (req, res) => {
     }
 }));
 
+userRouter.route("/bot/tournament/:id/:tournamentId").get(asyncHandler(async (req, res) => {
+    try {
+        const { id, tournamentId } = req.params;
+        const { tourName, playerTeam } = req.body;
+        const newTournaments = [];
+        const user = await User.findById(id);
+        // res.status(204).json({user});
+        if(user) {
+            user.tournaments.map((tournament) => {
+                newTournaments.push(tournament);
+            });
+            newTournaments.push({               
+                "tournId": tournamentId,
+                "tourName": tourName,
+                "playerTeam": playerTeam
+            });
+            user.tournaments = newTournaments;
+            await user.save();
+            res.status(201).json({ user });
+        } else {
+            res.status(204).json({ message: "User does not exist" });
+        }
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Sever Error...");
+    }
+}))
+
 export default userRouter;

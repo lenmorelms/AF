@@ -95,7 +95,8 @@ const Signup = () => {
     return (
         <>
         <div className="" style={{ textAlign: "center", padding: "5rem 1rem" }}>
-        {success && <div>Account created, check email for verification link</div>}
+        {/* {success && <div>Account created, check email for verification link</div>} */}
+        {success && <div>Account Created Successfully, <a href="/signin">Click to Signin</a></div>}
         {/* {codeSuccess && <div>Account verification link sent to email</div>} */}
         {localError && (
           <Message variant="alert-danger" onClose={() => setLocalError(null)}>
