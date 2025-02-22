@@ -1,0 +1,330 @@
+/* App.css */
+/* @import url('./fonts.css'); */
+.bungee-spice-regular {
+    font-family: "Bungee Spice", sans-serif!important;
+    font-weight: 400!important;
+    font-style: normal!important;
+  }
+  body {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+  }
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+  /* Chrome, Safari */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  /* Navigation */
+  .nav-link:hover {
+    color: #e74c3c;
+  }
+  .nav-link.active {
+    color: #e74c3c;
+  }
+  .header-login-button {
+    background-color: #e74c3c;
+    color: #fff!important;
+    border-radius: 30px;
+    width: 100%;
+  }
+  .header-login-button:hover {
+    color: #fff!important;
+  }
+  .btn-login {
+    background-color: navy;
+    color: #fff;
+    border-radius: 30px;
+    width: 50%;
+  }
+  .btn-login:hover {
+    transition: 0.5s;
+    background-color: #e74c3c;
+    color: #fff;
+  }
+  .navy {
+    color: navy;
+  }
+  .red {
+    color: #e74c3c;
+  }
+  .error {
+    margin: 0 25%;
+  }
+  .plain-button {
+    background-color: transparent;
+    border: 0;
+  }
+  .center {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+  }
+  /* Override Bootstrap input border styles */
+  /* .input-group-text, .form-control {
+    border-color: black !important;
+  } */
+  
+  /* Override Bootstrap input focus styles */
+  /* .form-control:focus {
+    border-color: black !important;
+    box-shadow: none !important; 
+  } */
+  /* Home Screen */
+  .homepage-hero {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
+      url("/public/ap_imgs/hero2.jpg") no-repeat scroll center / cover;
+    padding: 50px 0 50px;
+    text-align: center;
+    color: #f5f0f0;
+  }
+  /* How to play Componet */
+  .my-column {
+    margin: 2px;
+    /* background-color: #d19999;  */
+    color: rgb(8, 8, 8); /* White text color */
+    border-radius: 10px; /* Rounded edges */
+    padding: 20px; /* Add some padding for spacing */
+    text-align: center; /* Center-align content */
+    margin-bottom: 20px; /* Add space between columns */
+    box-shadow: 3px 0 0 2px navy;
+  }
+  
+  /* Style for the buttons */
+  .my-column button, .start-playing button {
+    background-color: #e74c3c; /* White button background */
+    color: #fefefe; /* #e74c3c button text color */
+    border: none;
+    border-radius: 20px; /* Rounded button edges */
+    padding: 10px 20px; /* Adjust padding as needed */
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .my-column button:hover, .start-playing button:hover {
+    padding: 12px 23px;
+    transition: 0.3s;
+  }
+  .league-heander-nav-link:hover {
+    color: #000;
+  }
+  .camel-case {
+    text-transform: lowercase;
+  }
+  
+  .camel-case::first-letter {
+    text-transform: uppercase;
+  }
+  .p#e74c3cict-box {
+    text-align: center;
+    /* width: 50%; */
+    border: 1px solid navy;
+    border-radius: 5px;
+  }
+  button.p#e74c3cict-box {
+    background-color: navy;
+    color: #fff;
+  }
+  button.p#e74c3cict-box:hover {
+    background-color: navy;
+    color: #fff;
+  }
+  .terms-of-use {
+    background-color: #e9e9e9;
+    margin: 0;
+  }
+  /* Call to Action Component */
+  .subscribe-section {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
+      /* url("https://sasshoes-com.s3.us-west-2.amazonaws.com/img/banner-uplift-21.jpg") */
+      url("https://afrip#e74c3cictor.onrender.com/images/ground.jpg")
+        no-repeat scroll center / cover;
+    padding: 100px 0 100px;
+  }
+  .subscribe-head h2 {
+    color: #fff;
+    font-size: 30px;
+    letter-spacing: 0;
+    line-height: 30px;
+    margin: 0 0 13px;
+    text-transform: uppercase;
+  }
+  .subscribe-head p {
+    color: #fff;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 0 39px;
+  }
+  .subscribe-head {
+    text-align: center;
+  }
+  .form-section input[type="email"] {
+    border: 0 none;
+    border-radius: 25px;
+    color: #9b9b9b;
+    font-size: 16px;
+    font-style: normal;
+    height: 51px;
+    letter-spacing: 0;
+    text-align: center;
+    width: 460px;
+  }
+  .form-section input[type="submit"] {
+    background: #e74c3c;
+    border: 0 none;
+    border-radius: 25px;
+    color: #fff;
+    height: 52px;
+    letter-spacing: 0;
+    margin-left: -60px;
+    padding: 0 58px;
+    text-transform: uppercase;
+    /* font-size: 12px; */
+  }
+  .form-section input[type="submit"]:hover {
+    background-color: navy;
+    transition: 0.5s;
+    color: #fff;
+  }
+  /* .banner {
+    background-color: navy;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+  } */
+  @media screen and (max-width: 768px) {
+    .form-section input[type="email"] {
+      width: 100%;
+      margin: 2px;
+    }
+    .form-section input[type="submit"] {
+      width: 100%;
+      padding: 0;
+      margin: 2px;
+    }
+  }
+  /* Join League [selecting team] */
+  .radio-item{
+    display: none !important;
+  }
+  .label-item {
+    opacity: 1;
+    color: #000;
+  }  
+  .radio-item:checked + label {
+    opacity: 0.5;
+  }
+  
+  /* ZIMPSL */
+  .p#e74c3cictor-box {
+    width: 198px;
+    font-family: monospace;
+    letter-spacing: 8px;
+    border: 1px solid #000;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><line style="stroke: #000" x1="20.090665817260742" y1="-0.08398216962814331" x2="20.090665817260742" y2="20.07965660095215"/></svg>');
+    background-repeat: repeat-x;
+  }
+  .p#e74c3cictor-logo {
+    border-radius: 50%;
+      max-width: 100px; /* Adjust the width as needed */
+      height: auto; /* Adjust the height as needed */
+  }
+  
+  /* RE USABLE CODE */
+  /* FLEX */
+  .flex-container {
+    display: flex;
+    flex-direction: row; /* Horizontal flex on larger screens */
+    justify-content: space-between; /* Distribute components evenly */
+  }
+  
+  .component {
+    flex: 1; /* Equal width for all components */
+  }
+  
+  @media (max-width: 768px) {
+    /* Switch to vertical flex on smaller screens */
+    .flex-container {
+        flex-direction: column;
+    }
+    .p#e74c3cictor-logo {
+      border-radius: 50%;
+        max-width: 70px; /* Adjust the width as needed */
+        height: auto; /* Adjust the height as needed */
+    }
+    .lock-btn {
+      display: none;
+    }
+  }
+  
+  .color-#e74c3c {
+    color: #e74c3c;
+  }
+  .heading {
+    font-size: 30px;
+  }
+  .margin {
+    margin-top: 1rem;
+  }
+  /* flex wrap */
+  .flex-container-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* font-size: 30px; */
+    text-align: center;
+  }
+  
+  .flex-container-wrap > div {
+    background-color: #e9e5e5; 
+    /* background-color: dodgerblue; */
+    margin: 1%;
+    /* padding: 10px; */
+    /* flex: 30%;
+    max-width: 30%; */
+  }
+  .flex-container-wrap > .flex-tournament {
+    flex: 30%;
+    max-width: 30%;
+    border: 3px solid #fff;
+    border-radius: 5%;
+  }
+  .flex-container-wrap > .flex-team {
+    flex: 10%;
+    max-width: 10%;
+  }
+  .my-component {
+    margin: 0 10%;
+  }
+  @media (max-width: 768px) {
+    .flex-container-wrap {
+      flex-direction: row;
+    }
+    .flex-container-wrap > .flex-tournament {
+        min-width: 95%!important;
+    }
+    .flex-container-wrap > .flex-team {
+      flex: 30%;
+      max-width: 30%!important;
+      text-align: center;
+    }
+    .select-team-section {
+      margin-left: 3%!important;
+    }
+    .my-component {
+      margin: 0 2%;
+    }
+  }
+  .rounded-border {
+    border-radius: 3%
+  }
