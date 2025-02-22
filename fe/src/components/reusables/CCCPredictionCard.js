@@ -387,7 +387,7 @@ const CCCPredictionCard = ({
               }}
               style={styles.inputNumber}
             />
-            {!result && <div style={styles.msg}><b>*full time is 90 mins + added time*</b></div>}
+            {/* {!result && <div style={styles.msg}><b>*full time is 90 mins + added time*</b></div>} */}
           </div>
         </div>
 
