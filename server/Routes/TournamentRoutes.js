@@ -200,13 +200,18 @@ tournamentRouter.route("/player/join/:id").put(asyncHandler(async (req, res) => 
             await session.abortTransaction();
             return res.status(404).json({ message: "Tournament not found" });
         }
+        console.log("1");
 
         // Check if user exists, if not, create one
-        let user = await User.findOne({ userId }).session(session);
-        if (!user) {
-            user = new User({ userId, tournaments: [] });
-            await user.save({ session });
-        }
+        // let user = await User.find({ userId }).session(session);
+        // if (!user) {
+        //     user = new User({ userId, tournaments: [] });
+        //     await user.save({ session });
+        // }
+        const user = new User({userId, totournaments: []});
+        await user.save();
+
+        console.log(user);
 
         // Use `$addToSet` to prevent duplicate tournament entries
         const updatedUser = await User.findOneAndUpdate(
@@ -222,6 +227,8 @@ tournamentRouter.route("/player/join/:id").put(asyncHandler(async (req, res) => 
             },
             { new: true, session }
         );
+
+        console.log("--3");
 
         // If user was not modified, they are already in the tournament
         if (!updatedUser) {
