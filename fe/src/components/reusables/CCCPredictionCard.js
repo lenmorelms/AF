@@ -211,6 +211,7 @@ const CCCPredictionCard = ({
   let ballPossessionPoints = 0;
 
   function calculatePlayerPoints() {
+    if (result) {
     if (actualHalfTimeHomeScore === playerResult[0].predictedHalfTimeHomeScore && actualHalfTimeAwayScore === playerResult[0].predictedHalfTimeAwayScore) {
       halfTimePoints += 3;
     }
@@ -272,7 +273,7 @@ const CCCPredictionCard = ({
     || (actualHomeBallPosession === actualAwayBallPosession && playerResult[0].predictedHomeBallPosession === playerResult[0].predictedAwayBallPosession) ) {
       ballPossessionPoints += 2;
   }
-
+ }
   }
   calculatePlayerPoints();
 

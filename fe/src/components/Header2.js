@@ -46,7 +46,7 @@ const Header2 = () => {
             <UserButton />
         </SignedIn>
         <SignedOut>
-             <SignInButton style={styles.loginButton} />
+             <SignInButton  redirectUrl="/tournaments" style={styles.loginButton} />
         </SignedOut>
       </header>
       {/* {loading && <Loading />} */}
