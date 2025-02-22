@@ -18,6 +18,9 @@ const TournamentNav = ({tournamentId}) => {
         <li className="nav-bar__item">
           <a href={`/${tournamentId}/leaderboard`} className="nav-bar__link">Leaderboard</a>
         </li>
+        <li className="nav-bar__item">
+          <a href={`/winners`} className="nav-bar__link">Winner</a>
+        </li>
       </ul>
     </nav>
   );

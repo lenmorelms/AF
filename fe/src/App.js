@@ -26,6 +26,7 @@ import NotFound from './screens/NotFound';
 import Store from './screens/Store';
 import Profile from './screens/Profile';
 import Results from './screens/Results';
+import Winners from './screens/Winners';
 
 function App() {
   const [deviceType, setDeviceType] = useState("");
@@ -88,6 +89,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Results deviceType={deviceType} />
+            </ProtectedRoute>
+           }
+          />
+          <Route
+          exact path=':id/winners' 
+          element={
+            <ProtectedRoute>
+              <Winners deviceType={deviceType} />
             </ProtectedRoute>
            }
           />
