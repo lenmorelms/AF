@@ -29,13 +29,11 @@ import Results from './screens/Results';
 
 function App() {
   const [deviceType, setDeviceType] = useState("");
-  // axios.get(`/device`).then(response => setDeviceType(response.data.deviceType));
-  // Fetch device type only when the component mounts
   useEffect(() => {
     axios.get(`https://afripredictor-server.onrender.com/device`)
       .then(response => setDeviceType(response.data.deviceType))
       .catch(error => console.error('Error fetching device type:', error));
-  }, []); // Empty dependency array ensures it runs only once on mount
+  }, []); 
   return (
     // <Router>
       <Routes>

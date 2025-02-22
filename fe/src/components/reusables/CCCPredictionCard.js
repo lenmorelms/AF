@@ -9,6 +9,7 @@ import Message from "./Message";
 import Select from "react-select"
 import CircularSlider from '@fseehawer/react-circular-slider';
 import CustomCircularSlider from "./CustomCircularSlider";
+import CustomHorizontalSlider from "./CustomHorizontalSlider";
 // import Button from "../components/reusables/Button";
 
 const modalStyles = {
@@ -65,6 +66,7 @@ const modalStyles = {
 };
 
 const CCCPredictionCard = ({
+  deviceType,
   userId,
   tournamentId,
   fixtureId,
@@ -494,42 +496,41 @@ const CCCPredictionCard = ({
         {/* Ball Possession */}
         <div style={styles.inputGroup}>
           <label style={styles.label}>Ball Possession (%)</label>
-          <div style={styles.doubleInput}>  
-          <CustomCircularSlider
-        label="Dynamos"
-        value={(playerPredicted && playerResult) ? playerResult[0].predictedHomeBallPosession : homeBallPosession}
-        onChange={handleHomeChange}
-        size={120}
-        strokeWidth={10}
-        knobColor="blue"
-        progressColorFrom="blue"
-        progressColorTo="#1A73E8"
-        trackColor="#eeeeee"
-        labelColor="#fff"
-        fontSize={14}
-      />
-      {result ? 
+          <div style={styles.doubleInput}>
+              <CustomHorizontalSlider
+                  label="Dynamos"
+                  value={(playerPredicted && playerResult) ? playerResult[0].predictedHomeBallPosession : homeBallPosession}
+                  onChange={handleHomeChange}
+                  size={80}
+                  strokeWidth={10}
+                  knobColor="blue"
+                  progressColorFrom="blue"
+                  progressColorTo="#1A73E8"
+                  trackColor="#eeeeee"
+                  labelColor="#fff"
+                  fontSize={14}
+              />
+              {result ? 
               <div style={styles.points}>
                 <b>You Earned</b>
                 <p>{ballPossessionPoints} Points</p>
               </div>
               : "" }
-      <CustomCircularSlider
-        label="Simba Bhora"
-        value={(playerPredicted && playerResult) ? playerResult[0].predictedAwayBallPosession : awayBallPosession}
-        onChange={handleAwayChange}
-        size={120}
-        strokeWidth={10}
-        knobColor="red"
-        progressColorFrom="red"
-        progressColorTo="#e74c3c"
-        trackColor="#eeeeee"
-        labelColor="#fff"
-        fontSize={14}
-      />
+              <CustomHorizontalSlider
+                  label="Simba Bhora"
+                  value={(playerPredicted && playerResult) ? playerResult[0].predictedAwayBallPosession : awayBallPosession}
+                  onChange={handleAwayChange}
+                  size={80}
+                  strokeWidth={10}
+                  knobColor="red"
+                  progressColorFrom="red"
+                  progressColorTo="#e74c3c"
+                  trackColor="#eeeeee"
+                  labelColor="#fff"
+                  fontSize={14}
+              />
           </div>
         </div>
-
         <button type="submit" className="btn btn-login" style={styles.submitButton}
           disabled={(timeHasReachedOrPassed(date, time) || playerPredicted) ? true : false}
         >

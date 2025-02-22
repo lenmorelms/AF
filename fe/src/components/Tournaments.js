@@ -19,18 +19,6 @@ const Tournaments = ({ source }) => {
 
     const tournamentsData = useSelector((state) => state._tournaments);
     const { data, loading, error, success } = tournamentsData;
-
-    // useEffect(() => {
-    //     async function fetchUserData() {
-    //         const token = await getToken();
-    //         if (userId) {
-    //             dispatch(getUserData(userId, token));
-    //         } else {
-    //             console.error("User ID is undefined, skipping API call.");
-    //         }
-    //     }
-    //     fetchUserData();
-    // }, [dispatch, userId, getToken]);
     useEffect(() => {
         async function fetchUserData() {
             const token = await getToken();
@@ -90,9 +78,7 @@ const Tournaments = ({ source }) => {
     return (
         <div style={styles.container} className="homepage-hero">
             {loading && <Loading />}
-            {console.log("<<<<<<>>>>>"+userData)}
             {
-            // successProfile && (
                 success && (
                     <>
                     <h3 style={styles.heading}>Tournaments</h3>

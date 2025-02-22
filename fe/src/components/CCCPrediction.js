@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { finalsTournamentFixture } from "../redux/Actions";
+import Loading from "./reusables/Loading";
 
 const CCCPrediction = ({ deviceType, tournamentId }) => {
     const { id } = useParams();
@@ -24,6 +25,7 @@ const CCCPrediction = ({ deviceType, tournamentId }) => {
       }, [dispatch, id, userId, getToken]);
     return (
         <>
+        {loading && <Loading />}
         {success && data.length === 0 && (
           <div className="center">
             NO FIXTURES AS OF YET...
@@ -32,6 +34,7 @@ const CCCPrediction = ({ deviceType, tournamentId }) => {
         {success && data.map((d) => (
             <div className="flex-prediction-card" key={d._id}>
                 <CCCPredictionCard
+                    deviceTyp={deviceType}
                     userId={userId}
                     tournamentId={id}
                     fixtureId={d._id}
@@ -55,7 +58,6 @@ const CCCPrediction = ({ deviceType, tournamentId }) => {
                 />
             </div>
         ))}
-        {/* {success && console.log("<<<>>>"+JSON.stringify(data))} */}
         </>
     )
 }
