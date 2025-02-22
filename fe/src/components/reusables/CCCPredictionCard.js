@@ -375,7 +375,7 @@ const CCCPredictionCard = ({
                 <p>{fullTimePoints} Points</p>
               </div>
               : "" }
-              {!result && <div style={styles.msg}><b>*full time is 90 mins + added time*</b></div>}
+              {/* {!result && <div style={styles.msg}><b>*full time is 90 mins + added time*</b></div>} */}
             <input
               type="number"
               min={0}
@@ -387,6 +387,7 @@ const CCCPredictionCard = ({
               }}
               style={styles.inputNumber}
             />
+            {!result && <div style={styles.msg}><b>*full time is 90 mins + added time*</b></div>}
           </div>
         </div>
 
