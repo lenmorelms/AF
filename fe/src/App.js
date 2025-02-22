@@ -32,7 +32,7 @@ function App() {
   // axios.get(`/device`).then(response => setDeviceType(response.data.deviceType));
   // Fetch device type only when the component mounts
   useEffect(() => {
-    axios.get(`http://127.0.0.1:5000/device`)
+    axios.get(`https://afripredictor-server.onrender.com/device`)
       .then(response => setDeviceType(response.data.deviceType))
       .catch(error => console.error('Error fetching device type:', error));
   }, []); // Empty dependency array ensures it runs only once on mount
