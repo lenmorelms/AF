@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { finalsTable } from "../redux/Actions";
 import { useAuth } from "@clerk/clerk-react";
+import Loading from "./reusables/Loading";
 
 const FinalsLeaderboardCard = ({deviceType, tournamentId}) => {
   const { getToken } = useAuth();
@@ -32,7 +33,7 @@ const FinalsLeaderboardCard = ({deviceType, tournamentId}) => {
 
   return (
     <div style={styles.cardContainer}>
-      {success && console.log("<<<<<>>>>"+typeof data)}
+      {loading && <Loading />}
       <h2 style={styles.heading}>Leaderboard</h2>
       <table style={styles.table}>
         <thead>

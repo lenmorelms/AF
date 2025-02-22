@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { finalsTournamentFixture } from "../redux/Actions";
 import CCCResultsCard from "./reusables/CCCResultsCard";
+import Loading from "./reusables/Loading";
 
 const CCCResult = ({ deviceType, tournamentId }) => {
     const { id } = useParams();
@@ -30,6 +31,7 @@ const CCCResult = ({ deviceType, tournamentId }) => {
             NO FIXTURES AS OF YET...
           </div>
         )}
+        {loading && <Loading />}
         {success && data.map((d) => (
             <div className="flex-prediction-card" key={d._id}>
                 <CCCResultsCard
@@ -56,7 +58,6 @@ const CCCResult = ({ deviceType, tournamentId }) => {
                 />
             </div>
         ))}
-        {/* {success && console.log("<<<>>>"+JSON.stringify(data))} */}
         </>
     )
 }

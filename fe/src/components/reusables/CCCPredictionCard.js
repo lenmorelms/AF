@@ -201,6 +201,7 @@ const CCCPredictionCard = ({
   };
 
   const teamToScore = [
+    { value: 'No Goal', label: 'No Goals'},
     { value: 'Dynamos', label: 'Dynamos' },
     { value: 'Simba Bhora', label: 'Simba Bhora' },
   ];
@@ -374,6 +375,7 @@ const CCCPredictionCard = ({
                 <p>{fullTimePoints} Points</p>
               </div>
               : "" }
+              {!result && <div style={styles.msg}><b>*full time is 90 mins + added time*</b></div>}
             <input
               type="number"
               min={0}
